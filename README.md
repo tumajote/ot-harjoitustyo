@@ -5,4 +5,4 @@ https://github.com/tumajote/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.
 
 https://github.com/tumajote/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt
 
-Muutos
+uutos
