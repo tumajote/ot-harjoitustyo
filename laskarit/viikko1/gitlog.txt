@@ -1,0 +1,86 @@
+commit 1e21fc5874f9ac316143836c444c0fc91d6b3315
+Author: Terho Tuukka M J <tmjterho@helsinki.fi>
+Date:   Tue Mar 12 13:00:54 2019 +0200
+
+    mutoksia
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit e9f429d3db68330a41aaf8c6b27a73f73c8dbede
+Author: Terho Tuukka M J <tmjterho@helsinki.fi>
+Date:   Tue Mar 12 12:57:15 2019 +0200
+
+    t
+
+ tiedostoja/file3 | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit f6dceb6522155dacd2fe0b0d73020e1fa23370d7
+Author: Terho Tuukka M J <tmjterho@helsinki.fi>
+Date:   Tue Mar 12 12:55:38 2019 +0200
+
+    uusia
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 941fc3619e1582bc486a0633cc1f85f1517a5f06
+Author: Terho Tuukka M J <tmjterho@helsinki.fi>
+Date:   Tue Mar 12 12:30:29 2019 +0200
+
+    jotain
+
+ eka.txt      | 4 ++--
+ tiedost3.txt | 3 +++
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+commit 93d581b1a3398cfd14842726743bc06d87937f24
+Author: Terho Tuukka M J <tmjterho@helsinki.fi>
+Date:   Tue Mar 12 12:28:09 2019 +0200
+
+    nimen vaihto ja tiedoston poisto
+
+ tiedost.txt => eka.txt | 0
+ tiedost2.txt           | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 1da8d6b106a7deb8b604ccb6103e1d13c89a73cc
+Author: Terho Tuukka M J <tmjterho@helsinki.fi>
+Date:   Tue Mar 12 12:25:01 2019 +0200
+
+    mjuokkailua
+
+ tiedost.txt | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+commit 4fe0ab5d41fce379a77e2855e4abbe3e487f1ef9
+Author: Terho Tuukka M J <tmjterho@helsinki.fi>
+Date:   Tue Mar 12 12:16:56 2019 +0200
+
+    kolmas tiedosto
+
+ tiedost3.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 5425a8aa6d66647f304200bc1d3eeae260c4b034
+Author: Terho Tuukka M J <tmjterho@helsinki.fi>
+Date:   Tue Mar 12 12:15:15 2019 +0200
+
+    uusi tiedosto ja lisäys
+
+ tiedost.txt  | 1 +
+ tiedost2.txt | 0
+ 2 files changed, 1 insertion(+)
+
+commit 8d5d94473b1db7d3cb951f7f414d4491a87eb31e
+Author: Terho Tuukka M J <tmjterho@helsinki.fi>
+Date:   Tue Mar 12 12:01:12 2019 +0200
+
+    Luotu tiedosto
+
+ tiedost.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
