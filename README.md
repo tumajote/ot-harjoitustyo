@@ -5,4 +5,5 @@ https://github.com/tumajote/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.
 
 https://github.com/tumajote/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt
 
-uutos
+### Viikko 2
+https://github.com/tumajote/ot-harjoitustyo/tree/master/laskarit/viikko2
