@@ -8,11 +8,18 @@ Sovellus tarjoaa yksinkertaisia kuvanmuokkaus ja analysointi työkaluja sekä ma
 
 * Avaa yleisimmät kuvatiedostot ja näyttää kuvan koon pikseleinä sekä valon jakautumisen kuvassa histogrammina
 
+* Kuvan orientaation muuttaminen
+
 * Kuvan kontrastin säätäminen
 
-* Kirkkauden säätäminen
+* Kuvan kirkkauden säätäminen
 
-* Tarkkuuden säätäminen
+* Kuvan tarkkuuden säätäminen
+
+* Värikuvan muuntaminen mustavalkoiseksi
+
+* Värikuvan muuntaminen sepiaksi
+
 
 ## Jatkokehitysideoita
 
