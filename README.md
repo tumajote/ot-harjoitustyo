@@ -8,6 +8,13 @@
 
 ## Komentorivitoiminnot
 
+### Käynnistys
+
+Ohjelma käynnistyy komennolla
+```
+mvn compile exec:java -Dexec.mainClass=GUI.LaunchApplication
+```
+
 ### Testaus
 
 Testit suoritetaan komennolla
