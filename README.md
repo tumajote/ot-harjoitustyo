@@ -3,13 +3,24 @@
 ## Dokumentaatio
 [Vaatimusmäärittely](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
+[Työaikakirjanpito](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
 
 
-## Harjoitukset
-### Viikko 1
-https://github.com/tumajote/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt
+## Komentorivitoiminnot
 
-https://github.com/tumajote/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt
+### Testaus
 
-### Viikko 2
-https://github.com/tumajote/ot-harjoitustyo/tree/master/laskarit/viikko2
+Testit suoritetaan komennolla
+
+```
+mvn test
+```
+
+Testikattavuusraportti luodaan komennolla
+
+```
+mvn jacoco:report
+```
+
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto _target/site/jacoco/index.html_
+

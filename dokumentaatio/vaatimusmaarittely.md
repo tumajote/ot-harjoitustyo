@@ -6,7 +6,7 @@ Sovellus tarjoaa yksinkertaisia kuvanmuokkaus ja analysointi työkaluja sekä ma
 
 ## Perusversion tajoama toiminnallisuus
 
-* Avaa yleisimmät kuvatiedostot ja näyttää kuvan koon pikseleinä sekä valon jakautumisen kuvassa histogrammina
+* Avaa jpg ja png kuvatiedostot ja näyttää kuvan koon pikseleinä sekä valon jakautumisen kuvassa histogrammina
 
 * Kuvan orientaation muuttaminen
 
