@@ -1,6 +1,6 @@
 package gui;
 
-import fileIO.FileIO;
+import fileIO.FileLoader;
 import domain.ImageData;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
@@ -63,7 +63,7 @@ public class LaunchApplication extends Application {
 
         @Override
         public void handle(ActionEvent t) {
-            FileIO fileIo = new FileIO();
+            FileLoader fileIo = new FileLoader();
             fileIo.loadImage(currentImage,histogram, imageData, widthXHeight);
 
         }

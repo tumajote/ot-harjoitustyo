@@ -18,7 +18,7 @@ import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 
 
-public class FileIO {
+public class FileLoader {
 
     public void loadImage(ImageView currentImage, ImageView histogram, ImageData imageData, Label widthXHeight) {
         FileChooser fileChooser = new FileChooser();
