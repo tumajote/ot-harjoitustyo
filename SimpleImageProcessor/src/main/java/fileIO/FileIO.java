@@ -1,7 +1,8 @@
 
-package GUI;
+package fileIO;
 
-import ImageData.Measures;
+import domain.ImageData;
+import gui.LaunchApplication;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +14,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
+import org.opencv.core.Mat;
+import org.opencv.highgui.Highgui;
 
 
-public class FileIo {
+public class FileIO {
 
-    public void loadImage(ImageView currentImage, Measures measures, Label widthXHeight) {
+    public void loadImage(ImageView currentImage, ImageView histogram, ImageData imageData, Label widthXHeight) {
         FileChooser fileChooser = new FileChooser();
 
         FileChooser.ExtensionFilter extFilterJPG
@@ -34,23 +37,30 @@ public class FileIo {
         File file = fileChooser.showOpenDialog(null);
 
         try {
-            BufferedImage bImage = ImageIO.read(file);
-            Image image = SwingFXUtils.toFXImage(bImage, null);
+//            BufferedImage bImage = ImageIO.read(file);
+//            Image image = SwingFXUtils.toFXImage(bImage, null);
+            nu.pattern.OpenCV.loadLibrary();
+            Mat mat = Highgui.imread(file.getCanonicalPath());
+            imageData.setMatAndUpdateImage(mat);
+            Image image = imageData.getImage();
+            
             currentImage.setImage(image);
+            histogram.setImage(imageData.getHistogram());
 
             if (image.getHeight() > image.getWidth()) {
-                currentImage.setFitHeight(1200);
+                currentImage.setFitHeight(1000);
             } else {
-                currentImage.setFitWidth(1200);
+                currentImage.setFitWidth(1000);
             }
-
+            
             currentImage.setPreserveRatio(true);
             currentImage.setSmooth(true);
             currentImage.setCache(true);
-            measures.setImage(image);
-            widthXHeight.setText(measures.getImageMeasures());
-        } catch (IOException ex) {
-            Logger.getLogger(LaunchApplication.class.getName()).log(Level.SEVERE, null, ex);
+//            imageData.setImage(image);
+            widthXHeight.setText(imageData.getImageMeasures());
+            
+        } catch (Exception ex) {
+            System.out.println("Error");
         }
 
     }

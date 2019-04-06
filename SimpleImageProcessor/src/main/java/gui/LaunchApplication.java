@@ -1,49 +1,44 @@
-package GUI;
+package gui;
 
-import ImageData.Measures;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
+import fileIO.FileIO;
+import domain.ImageData;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javax.imageio.ImageIO;
 
 public class LaunchApplication extends Application {
 
     ImageView currentImage;
-    Measures measures;
-    Label widthXHeight; 
+    ImageView histogram;
+    ImageData imageData;
+    Label widthXHeight;
     BorderPane setup;
 
     @Override
-    public void start(Stage primaryStage) throws FileNotFoundException {
+    public void start(Stage primaryStage) throws FileNotFoundException {        
+        
         Button btnLoad = new Button("Load picture");
         btnLoad.setOnAction(btnLoadEventListener);
-        measures = new Measures();
-        widthXHeight = new Label(measures.getImageMeasures());
-        
+        imageData = new ImageData();
+        widthXHeight = new Label(imageData.getImageMeasures());
+
         currentImage = new ImageView();
+        histogram = new ImageView();
+        histogram.setFitWidth(300);
+        histogram.setFitHeight(200);
         VBox controls = new VBox();
         controls.setSpacing(10);
-        controls.setPadding(new Insets(15,20, 10,10));
+        controls.setPadding(new Insets(15, 20, 10, 10));
+        controls.getChildren().add(histogram);
         controls.getChildren().add(widthXHeight);
         controls.getChildren().add(btnLoad);
         setup = new BorderPane();
@@ -51,8 +46,6 @@ public class LaunchApplication extends Application {
         setup.setCenter(currentImage);
         setup.setPrefWidth(1500);
         setup.setPrefHeight(1500);
-       
-        
 
         Scene scene = new Scene(setup);
         primaryStage.setTitle("SimpleImageProcessor");
@@ -70,10 +63,8 @@ public class LaunchApplication extends Application {
 
         @Override
         public void handle(ActionEvent t) {
-            FileIo fileIo = new FileIo();
-            fileIo.loadImage(currentImage, measures,widthXHeight);
-            
-            
+            FileIO fileIo = new FileIO();
+            fileIo.loadImage(currentImage,histogram, imageData, widthXHeight);
 
         }
     };
