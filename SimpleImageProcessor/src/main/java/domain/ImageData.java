@@ -1,7 +1,10 @@
 package domain;
 
+import domain.methods.Method;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.LinkedBlockingDeque;
 import javafx.scene.image.Image;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
@@ -21,9 +24,11 @@ public class ImageData {
     Mat mat;
     Image histogram;
     ImageUtils imageUtils;
+    LinkedList<Mat> history;
 
     public ImageData() {
         imageUtils = new ImageUtils();
+        history = new LinkedList();
         this.height = 0;
         this.width = 0;
 
@@ -32,6 +37,9 @@ public class ImageData {
     }
 
     public void setMatAndUpdateImage(Mat mat) {
+        if (!mat.empty()){
+            history.add(mat);
+        }
         this.mat = mat;
         image = this.imageUtils.matToImage(mat);
         this.setImage(image);
@@ -67,12 +75,18 @@ public class ImageData {
     public int getHeight() {
         return height;
     }
+    public Mat getMat(){
+        return this.mat;
+    }
+    public void useMethod(Method method){
+        this.setMatAndUpdateImage(method.process(this.mat));
+    }
 
     public void calculateHistogram() {
         List<Mat> bgrPlanes = new ArrayList<>();
         Core.split(this.mat, bgrPlanes);
         int histSize = 256;
-        float[] range = {0, 256}; //the upper boundary is exclusive
+        float[] range = {0, 256}; 
         MatOfFloat histRange = new MatOfFloat(range);
         boolean accumulate = false;
         Mat bHist = new Mat(), gHist = new Mat(), rHist = new Mat();
