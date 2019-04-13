@@ -5,6 +5,7 @@
 
 [Työaikakirjanpito](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
 
+[Arkkitehtuuri](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
 ## Komentorivitoiminnot
 
