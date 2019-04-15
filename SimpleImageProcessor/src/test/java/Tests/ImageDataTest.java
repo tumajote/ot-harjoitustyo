@@ -32,7 +32,6 @@ public class ImageDataTest {
         File file = new File("test.JPG");
         System.out.println(file.getCanonicalPath());
         this.mat = Highgui.imread(file.getCanonicalPath());
-        System.out.println(mat.toString());
         imageData.setMatAndUpdateImage(mat);
     }
 

@@ -8,3 +8,4 @@
 | 5.4   | 6    | Histogrammi ja openCV integrointi|
 | 12.4  | 4    | Kuvan kääntäminen ja ohjelman rakenteen muokkausta|
 | 13.4  | 2    | Kuvan kääntäminen jatkuu|
+| 15.4  | 2    | Testi kuvan kääntämiselle|
