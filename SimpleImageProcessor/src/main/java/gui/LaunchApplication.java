@@ -26,22 +26,21 @@ public class LaunchApplication extends Application {
     BorderPane setup;
 
     @Override
-    public void start(Stage primaryStage) throws FileNotFoundException {        
-        
-        
+    public void start(Stage primaryStage) throws FileNotFoundException {
+
         imageData = new ImageData();
         Button loadButton = new Button("Load image");
         loadButton.setOnAction(btnLoadEventListener);
         widthXHeight = new Label(imageData.getImageMeasures());
-        
+
         Button rotateButton = new Button("Rotate picture");
         rotateButton.setOnAction(btnRotateEventListener);
-        
+
         currentImage = new ImageView();
         histogram = new ImageView();
         histogram.setFitWidth(300);
         histogram.setFitHeight(200);
-        
+
         VBox controls = new VBox();
         controls.setSpacing(10);
         controls.setPadding(new Insets(15, 20, 10, 10));
@@ -49,7 +48,7 @@ public class LaunchApplication extends Application {
         controls.getChildren().add(widthXHeight);
         controls.getChildren().add(loadButton);
         controls.getChildren().add(rotateButton);
-        
+
         setup = new BorderPane();
         setup.setLeft(controls);
         setup.setCenter(currentImage);
@@ -81,7 +80,7 @@ public class LaunchApplication extends Application {
             imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
         }
     };
-    
+
     EventHandler<ActionEvent> btnRotateEventListener
             = new EventHandler<ActionEvent>() {
         @Override

@@ -1,7 +1,6 @@
 package domain;
 
 import domain.methods.Method;
-import java.io.File;
 import java.util.LinkedList;
 import javafx.scene.image.Image;
 import org.opencv.core.Mat;

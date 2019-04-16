@@ -2,7 +2,6 @@ package fileio;
 
 import domain.ImageData;
 import java.io.File;
-import javafx.stage.FileChooser;
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 

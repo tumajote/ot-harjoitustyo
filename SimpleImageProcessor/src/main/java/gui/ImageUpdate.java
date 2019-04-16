@@ -5,10 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-/**
- *
- * @author tmjterho
- */
 public class ImageUpdate {
 
     public void update(ImageData imageData, ImageView histogram, ImageView currentImage, Label widthXHeight) {
