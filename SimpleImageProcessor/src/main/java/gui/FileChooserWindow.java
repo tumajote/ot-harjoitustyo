@@ -15,11 +15,11 @@ import javafx.stage.FileChooser;
  *
  * @author tmjterho
  */
-public class LoadFile {
+public class FileChooserWindow {
 
     File file;
 
-    public File loadImage() {
+    public File chooseFile() {
         FileChooser fileChooser = new FileChooser();
 
         FileChooser.ExtensionFilter extFilterJPG
@@ -42,7 +42,7 @@ public class LoadFile {
         try {
             path = file.getCanonicalPath();
         } catch (IOException ex) {
-            Logger.getLogger(LoadFile.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FileChooserWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
         return path;
     }

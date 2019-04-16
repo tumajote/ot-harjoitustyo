@@ -30,7 +30,7 @@ public class LaunchApplication extends Application {
         
         
         imageData = new ImageData();
-        Button loadButton = new Button("Load picture");
+        Button loadButton = new Button("Load image");
         loadButton.setOnAction(btnLoadEventListener);
         widthXHeight = new Label(imageData.getImageMeasures());
         
@@ -73,8 +73,8 @@ public class LaunchApplication extends Application {
         @Override
         public void handle(ActionEvent t) {
             FileLoader fileloader = new FileLoader();
-            LoadFile loadFile = new LoadFile();
-            loadFile.loadImage();
+            FileChooserWindow loadFile = new FileChooserWindow();
+            loadFile.chooseFile();
             File file = loadFile.getFile();
             fileloader.loadImage(imageData, file);
             ImageUpdate imageUpdate = new ImageUpdate();
