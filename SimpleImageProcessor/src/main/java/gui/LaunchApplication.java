@@ -1,6 +1,6 @@
 package gui;
 
-import fileIO.FileLoader;
+import fileio.FileLoader;
 import domain.ImageData;
 import domain.methods.Rotate;
 import java.io.FileNotFoundException;
@@ -73,7 +73,7 @@ public class LaunchApplication extends Application {
         @Override
         public void handle(ActionEvent t) {
             FileLoader fileIo = new FileLoader();
-            fileIo.loadImage(imageData);
+            fileIo.loadImage(imageData, new LoadFile().loadImage(imageData));
             ImageUpdate imageUpdate = new ImageUpdate();
             imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
         }

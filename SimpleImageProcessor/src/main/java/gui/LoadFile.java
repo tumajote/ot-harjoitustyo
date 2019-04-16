@@ -1,5 +1,9 @@
-
-package fileIO;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package gui;
 
 import domain.ImageData;
 import java.io.File;
@@ -7,10 +11,12 @@ import javafx.stage.FileChooser;
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 
-
-public class FileLoader {
-
-    public void loadImage(ImageData imageData) {
+/**
+ *
+ * @author tmjterho
+ */
+public class LoadFile {
+    public File loadImage(ImageData imageData) {
         FileChooser fileChooser = new FileChooser();
 
         FileChooser.ExtensionFilter extFilterJPG
@@ -24,15 +30,9 @@ public class FileLoader {
         fileChooser.getExtensionFilters()
                 .addAll(extFilterJPG, extFilterjpg, extFilterPNG, extFilterpng);
 
-        File file = fileChooser.showOpenDialog(null);
+        return fileChooser.showOpenDialog(null);
 
-        try {
-            nu.pattern.OpenCV.loadLibrary();
-            Mat mat = Highgui.imread(file.getCanonicalPath());
-            imageData.setMatAndUpdateImage(mat);  
-        } catch (Exception ex) {
-            System.out.println("Error");
-        }
+       
 
     }
 }

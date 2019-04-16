@@ -44,9 +44,15 @@ public class ImageDataTest {
     }
 
     @Test
-    public void heightIs() {
+    public void heightIsCorrect() {
         int height = 1846;
         assertEquals(height, imageData.getHeight());
+    }
+    
+    @Test
+    public void outputIsCorrect() {
+        
+        assertEquals("width: 2685 x height: 1846", imageData.getImageMeasures());
     }
 
 }
