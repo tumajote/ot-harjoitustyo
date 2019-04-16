@@ -1,6 +1,7 @@
 package domain;
 
 import domain.methods.Method;
+import java.io.File;
 import java.util.LinkedList;
 import javafx.scene.image.Image;
 import org.opencv.core.Mat;
@@ -34,7 +35,6 @@ public class ImageData {
         image = this.imageUtils.matToImage(mat);
         this.setImage(image);
         this.calculateHistogram();
-
     }
 
     public void setImage(Image image) {

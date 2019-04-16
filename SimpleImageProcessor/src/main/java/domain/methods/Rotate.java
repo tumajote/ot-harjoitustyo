@@ -8,7 +8,6 @@ public class Rotate implements Method {
     @Override
     public Mat process(Mat oldMat) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        
    
         Mat newMat = new Mat();
         Core.transpose(oldMat, newMat);

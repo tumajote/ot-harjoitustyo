@@ -3,6 +3,7 @@ package gui;
 import fileio.FileLoader;
 import domain.ImageData;
 import domain.methods.Rotate;
+import java.io.File;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -11,7 +12,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -30,12 +30,12 @@ public class LaunchApplication extends Application {
         
         
         imageData = new ImageData();
-        Button btnLoad = new Button("Load picture");
-        btnLoad.setOnAction(btnLoadEventListener);
+        Button loadButton = new Button("Load picture");
+        loadButton.setOnAction(btnLoadEventListener);
         widthXHeight = new Label(imageData.getImageMeasures());
         
-        Button btnRotate = new Button("Rotate picture");
-        btnRotate.setOnAction(btnRotateEventListener);
+        Button rotateButton = new Button("Rotate picture");
+        rotateButton.setOnAction(btnRotateEventListener);
         
         currentImage = new ImageView();
         histogram = new ImageView();
@@ -47,8 +47,8 @@ public class LaunchApplication extends Application {
         controls.setPadding(new Insets(15, 20, 10, 10));
         controls.getChildren().add(histogram);
         controls.getChildren().add(widthXHeight);
-        controls.getChildren().add(btnLoad);
-        controls.getChildren().add(btnRotate);
+        controls.getChildren().add(loadButton);
+        controls.getChildren().add(rotateButton);
         
         setup = new BorderPane();
         setup.setLeft(controls);
@@ -72,8 +72,11 @@ public class LaunchApplication extends Application {
 
         @Override
         public void handle(ActionEvent t) {
-            FileLoader fileIo = new FileLoader();
-            fileIo.loadImage(imageData, new LoadFile().loadImage(imageData));
+            FileLoader fileloader = new FileLoader();
+            LoadFile loadFile = new LoadFile();
+            loadFile.loadImage();
+            File file = loadFile.getFile();
+            fileloader.loadImage(imageData, file);
             ImageUpdate imageUpdate = new ImageUpdate();
             imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
         }

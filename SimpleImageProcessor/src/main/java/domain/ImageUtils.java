@@ -2,6 +2,7 @@
 package domain;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import javafx.scene.image.Image;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
@@ -16,5 +17,6 @@ public class ImageUtils {
         return new Image(new ByteArrayInputStream(byteMat.toArray()));
 
     }
+    
 
 }

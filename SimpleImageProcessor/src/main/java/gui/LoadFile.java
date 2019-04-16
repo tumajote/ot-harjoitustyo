@@ -5,18 +5,21 @@
  */
 package gui;
 
-import domain.ImageData;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.stage.FileChooser;
-import org.opencv.core.Mat;
-import org.opencv.highgui.Highgui;
 
 /**
  *
  * @author tmjterho
  */
 public class LoadFile {
-    public File loadImage(ImageData imageData) {
+
+    File file;
+
+    public File loadImage() {
         FileChooser fileChooser = new FileChooser();
 
         FileChooser.ExtensionFilter extFilterJPG
@@ -30,9 +33,23 @@ public class LoadFile {
         fileChooser.getExtensionFilters()
                 .addAll(extFilterJPG, extFilterjpg, extFilterPNG, extFilterpng);
 
-        return fileChooser.showOpenDialog(null);
-
-       
-
+        this.file = fileChooser.showOpenDialog(null);
+        return file;
     }
+
+    public String getPath() {
+        String path = null;
+        try {
+            path = file.getCanonicalPath();
+        } catch (IOException ex) {
+            Logger.getLogger(LoadFile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return path;
+    }
+
+    public File getFile() {
+        return file;
+    }
+    
+
 }
