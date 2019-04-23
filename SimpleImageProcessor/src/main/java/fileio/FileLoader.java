@@ -12,7 +12,7 @@ public class FileLoader {
         try {
             nu.pattern.OpenCV.loadLibrary();
             Mat mat = Highgui.imread(file.getCanonicalPath());
-            imageData.setMatAndUpdateImage(mat);
+            imageData.setMat(mat);
             path = file.getCanonicalPath();
         } catch (Exception ex) {
             System.out.println("Error");

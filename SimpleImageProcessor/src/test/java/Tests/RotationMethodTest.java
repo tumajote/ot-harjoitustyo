@@ -44,7 +44,7 @@ public class RotationMethodTest {
         File file = new File("test.JPG");
         System.out.println(file.getCanonicalPath());
         this.mat = Highgui.imread(file.getCanonicalPath());
-        imageData.setMatAndUpdateImage(mat);
+        imageData.setMat(mat);
 
         File file2 = new File("test.JPG");
         System.out.println(file2.getCanonicalPath());

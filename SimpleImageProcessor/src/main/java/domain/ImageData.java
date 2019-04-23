@@ -11,12 +11,15 @@ public class ImageData {
     int width;
     int height;
     String imageMeasures;
-    Mat mat;
+    Mat originalMat;
+    Mat adjustedMat;
     Image histogram;
     ImageUtils imageUtils;
     LinkedList<Mat> history;
+    Boolean imageExists;
 
     public ImageData() {
+        this.imageExists = false;
         imageUtils = new ImageUtils();
         history = new LinkedList();
         this.height = 0;
@@ -26,24 +29,28 @@ public class ImageData {
                 + " x height: " + this.height;
     }
 
-    public void setMatAndUpdateImage(Mat mat) {
-        if (!mat.empty()) {
-            history.add(mat);
-        }
-        this.mat = mat;
-        image = this.imageUtils.matToImage(mat);
-        this.setImage(image);
-        this.calculateHistogram();
+    public void setMat(Mat mat) {
+        imageExists = true;
+        this.originalMat = mat;
+        this.adjustedMat = mat;
+        this.updateMat();
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void updateMat() {
+        if (!adjustedMat.empty()) {
+            history.add(adjustedMat);
+        }
+        image = this.imageUtils.matToImage(adjustedMat);
         this.width = (int) image.getWidth();
         this.height = (int) image.getHeight();
+        this.calculateHistogram();
     }
 
     public Image getImage() {
         return image;
+    }
+    public boolean exists(){
+        return imageExists;
     }
 
     public String getImageMeasures() {
@@ -56,25 +63,18 @@ public class ImageData {
         return histogram;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
     public Mat getMat() {
-        return this.mat;
+        return this.originalMat;
     }
 
     public void useMethod(Method method) {
-        this.setMatAndUpdateImage(method.process(this.mat));
+        this.adjustedMat = method.process(this.originalMat);
+        this.updateMat();
     }
 
     public void calculateHistogram() {
-        Histogram histogram = new Histogram();
-        this.histogram = imageUtils.matToImage(histogram.createHistogram(this.mat));
+        Histogram hs = new Histogram();
+        this.histogram = imageUtils.matToImage(hs.createHistogram(this.adjustedMat));
     }
 
 }
