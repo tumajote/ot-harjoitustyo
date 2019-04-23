@@ -3,6 +3,7 @@ package gui;
 import fileio.FileLoader;
 import domain.ImageData;
 import domain.methods.Rotate;
+import fileio.FileSaver;
 import java.io.File;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
@@ -10,10 +11,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -31,6 +35,11 @@ public class LaunchApplication extends Application {
         imageData = new ImageData();
         Button loadButton = new Button("Load image");
         loadButton.setOnAction(btnLoadEventListener);
+        Button saveButton = new Button("Save image");
+        saveButton.setOnAction(btnSaveEventListener);
+        
+        HBox fileButtons = new HBox(5.0,loadButton,saveButton);
+
         widthXHeight = new Label(imageData.getImageMeasures());
 
         Button rotateButton = new Button("Rotate picture");
@@ -46,7 +55,7 @@ public class LaunchApplication extends Application {
         controls.setPadding(new Insets(15, 20, 10, 10));
         controls.getChildren().add(histogram);
         controls.getChildren().add(widthXHeight);
-        controls.getChildren().add(loadButton);
+        controls.getChildren().add(fileButtons);
         controls.getChildren().add(rotateButton);
 
         setup = new BorderPane();
@@ -73,11 +82,40 @@ public class LaunchApplication extends Application {
         public void handle(ActionEvent t) {
             FileLoader fileloader = new FileLoader();
             FileChooserWindow loadFile = new FileChooserWindow();
-            loadFile.chooseFile();
+            loadFile.openFile();
             File file = loadFile.getFile();
             fileloader.loadImage(imageData, file);
             ImageUpdate imageUpdate = new ImageUpdate();
             imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
+        }
+    };
+    
+    EventHandler<ActionEvent> btnSaveEventListener
+            = new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent t) {
+            FileSaver fileSaver = new FileSaver();
+            FileChooserWindow saveFile = new FileChooserWindow();
+            saveFile.saveFile();
+            File file = saveFile.getFile();
+            Boolean success = fileSaver.saveImage(imageData, file);
+            if (success) {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Save file success");
+                alert.setHeaderText(null);
+                alert.setContentText("File saved!");
+
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setTitle("Save file failure");
+                alert.setHeaderText("Save failed");
+                alert.setContentText("File not saved!");
+
+                alert.showAndWait();
+            }
+
         }
     };
 

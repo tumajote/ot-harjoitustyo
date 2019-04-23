@@ -10,7 +10,7 @@ public class FileChooserWindow {
 
     File file;
 
-    public File chooseFile() {
+    public File openFile() {
         FileChooser fileChooser = new FileChooser();
 
         FileChooser.ExtensionFilter extFilterJPG
@@ -25,6 +25,23 @@ public class FileChooserWindow {
                 .addAll(extFilterJPG, extFilterjpg, extFilterPNG, extFilterpng);
 
         this.file = fileChooser.showOpenDialog(null);
+        return file;
+    }
+    public File saveFile() {
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilterJPG
+                = new FileChooser.ExtensionFilter("JPG files (*.JPG)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterjpg
+                = new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
+        FileChooser.ExtensionFilter extFilterPNG
+                = new FileChooser.ExtensionFilter("PNG files (*.PNG)", "*.PNG");
+        FileChooser.ExtensionFilter extFilterpng
+                = new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
+        fileChooser.getExtensionFilters()
+                .addAll(extFilterJPG, extFilterjpg, extFilterPNG, extFilterpng);
+
+        this.file = fileChooser.showSaveDialog(null);
         return file;
     }
 
