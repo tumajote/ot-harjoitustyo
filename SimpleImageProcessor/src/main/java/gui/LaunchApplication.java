@@ -2,7 +2,7 @@ package gui;
 
 import fileio.FileLoader;
 import domain.ImageData;
-import domain.methods.AdjustBrightness;
+import domain.methods.BrightnessAndContrast;
 import domain.methods.Rotate;
 import fileio.FileSaver;
 import java.io.File;
@@ -13,6 +13,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -32,42 +33,58 @@ public class LaunchApplication extends Application {
     ImageData imageData;
     Label widthXHeight;
     BorderPane setup;
+    Slider brightnessSlider;
+    Slider contrastSlider;
 
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
 
         imageData = new ImageData();
 
-        // Create load and save buttons
+        // Load and save buttons
         Button loadButton = new Button("Load image");
         loadButton.setOnAction(btnLoadEventListener);
         Button saveButton = new Button("Save image");
         saveButton.setOnAction(btnSaveEventListener);
         HBox fileButtons = new HBox(5.0, loadButton, saveButton);
 
-        //Create width and height label
+        //Width and height label
         widthXHeight = new Label(imageData.getImageMeasures());
 
-        //Create rotate button
+        //Rotate button
         Button rotateButton = new Button("Rotate image");
         rotateButton.setOnAction(btnRotateEventListener);
 
-        //Create sliders for image adjustements
-        Slider brightnessSlider = new Slider(-100, 100, 0);
+        //Slider and reset button for brightness adjustement 
+        Button resetBrigthnessButton = new Button("Reset");
+        resetBrigthnessButton.setOnAction(resetBrigthnessButtonEventListener);
+        brightnessSlider = new Slider(-100, 100, 0);
         brightnessSlider.setShowTickMarks(true);
         brightnessSlider.setShowTickLabels(true);
-
-        brightnessSlider.setBlockIncrement(10.0);
+        brightnessSlider.setBlockIncrement(1.0);
         brightnessSlider.valueProperty().addListener(brightnessSliderListener);
         Label brightnessLabel = new Label("Brightness:");
+        HBox bightnessLabelAndReset = new HBox(10.0,brightnessLabel,resetBrigthnessButton);
 
-        //Create imageviewer
+
+        //Slider and reset button for contrast adjustement
+        Button resetContrastButton = new Button("Reset");
+        resetContrastButton.setOnAction(resetContrastButtonEventListener);
+        contrastSlider = new Slider(0, 3, 1);
+        contrastSlider.setShowTickMarks(true);
+        contrastSlider.setShowTickLabels(true);
+        contrastSlider.setBlockIncrement(0.1);
+        contrastSlider.valueProperty().addListener(contrastSliderListener);
+        Label contrastLabel = new Label("Contrast:");
+        HBox contrastLabelAndReset = new HBox(10.0,contrastLabel,resetContrastButton);
+
+        //Imageviewer and histogram
         currentImage = new ImageView();
         histogram = new ImageView();
         histogram.setFitWidth(300);
         histogram.setFitHeight(200);
 
-        //Create layout for controls
+        //Layout for controls
         VBox controls = new VBox();
         controls.setSpacing(10);
         controls.setPadding(new Insets(15, 20, 10, 10));
@@ -75,17 +92,18 @@ public class LaunchApplication extends Application {
         controls.getChildren().add(widthXHeight);
         controls.getChildren().add(fileButtons);
         controls.getChildren().add(rotateButton);
-        controls.getChildren().add(brightnessLabel);
+        controls.getChildren().add(bightnessLabelAndReset);
         controls.getChildren().add(brightnessSlider);
+        controls.getChildren().add(contrastLabelAndReset);
+        controls.getChildren().add(contrastSlider);
 
-        //Create layout for the whole applications
+        //General layout
         setup = new BorderPane();
         setup.setLeft(controls);
         setup.setCenter(currentImage);
         setup.setPrefWidth(1500);
         setup.setPrefHeight(1500);
 
-        //Show
         Scene scene = new Scene(setup);
         primaryStage.setTitle("SimpleImageProcessor");
         primaryStage.setScene(scene);
@@ -96,7 +114,8 @@ public class LaunchApplication extends Application {
     public static void main(String[] args) {
         launch(LaunchApplication.class);
     }
-
+    
+    //Load button event listener
     EventHandler<ActionEvent> btnLoadEventListener
             = new EventHandler<ActionEvent>() {
 
@@ -111,7 +130,8 @@ public class LaunchApplication extends Application {
             imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
         }
     };
-
+    
+    //Save button event listener
     EventHandler<ActionEvent> btnSaveEventListener
             = new EventHandler<ActionEvent>() {
 
@@ -143,7 +163,8 @@ public class LaunchApplication extends Application {
 
         }
     };
-
+    
+    //Rotate button event listener
     EventHandler<ActionEvent> btnRotateEventListener
             = new EventHandler<ActionEvent>() {
         @Override
@@ -151,12 +172,13 @@ public class LaunchApplication extends Application {
             if (!imageData.exists()) {
                 return;
             }
-            imageData.useMethod(new Rotate());
+            imageData.useTransformingMethod(new Rotate());
             ImageUpdate imageUpdate = new ImageUpdate();
             imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
         }
     };
-
+    
+    //Brightness slider change listener
     ChangeListener<Number> brightnessSliderListener
             = new ChangeListener<Number>() {
         @Override
@@ -164,11 +186,68 @@ public class LaunchApplication extends Application {
             if (!imageData.exists()) {
                 return;
             }
-            AdjustBrightness contrast = new AdjustBrightness();
-            contrast.setValue((double) newValue);
-            imageData.useMethod(contrast);
+            BrightnessAndContrast brightness = new BrightnessAndContrast();
+            System.out.println(newValue);
+            System.out.println(contrastSlider.getValue());
+            brightness.setAlphAndBeta(contrastSlider.getValue(), (double) newValue);
+            imageData.useProcessingMethod(brightness);
             ImageUpdate imageUpdate = new ImageUpdate();
             imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
+        }
+    };
+    
+    //Brightness reset button event listener
+    EventHandler<ActionEvent> resetBrigthnessButtonEventListener
+            = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent t) {
+            if (!imageData.exists()) {
+                return;
+            }
+            brightnessSlider.setValue(0);
+            BrightnessAndContrast brightness = new BrightnessAndContrast();
+            brightness.setAlphAndBeta(contrastSlider.getValue(), 0);
+            imageData.useProcessingMethod(brightness);
+            ImageUpdate imageUpdate = new ImageUpdate();
+            imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
+            
+        }
+    };
+
+    
+    //Contrast slider change listener
+    ChangeListener<Number> contrastSliderListener
+            = new ChangeListener<Number>() {
+        @Override
+        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            if (!imageData.exists()) {
+                return;
+            }
+            BrightnessAndContrast contrast = new BrightnessAndContrast();
+            System.out.println(newValue);
+            System.out.println(brightnessSlider.getValue());
+            contrast.setAlphAndBeta((double) newValue, brightnessSlider.getValue());
+            imageData.useProcessingMethod(contrast);
+            ImageUpdate imageUpdate = new ImageUpdate();
+            imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
+        }
+    };
+    
+    //Contrast reset button event listener
+    EventHandler<ActionEvent> resetContrastButtonEventListener
+            = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent t) {
+            if (!imageData.exists()) {
+                return;
+            }
+            contrastSlider.setValue(1);
+            BrightnessAndContrast brightness = new BrightnessAndContrast();
+            brightness.setAlphAndBeta(1, brightnessSlider.getValue());
+            imageData.useProcessingMethod(brightness);
+            ImageUpdate imageUpdate = new ImageUpdate();
+            imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
+            
         }
     };
 

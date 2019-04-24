@@ -1,61 +1,53 @@
 package domain;
 
 import domain.methods.Method;
-import java.util.LinkedList;
 import javafx.scene.image.Image;
 import org.opencv.core.Mat;
 
 public class ImageData {
 
     Image image;
-    int width;
-    int height;
     String imageMeasures;
     Mat originalMat;
-    Mat adjustedMat;
+    Mat transformedMat;
+    Mat processedMat;
     Image histogram;
     ImageUtils imageUtils;
-    LinkedList<Mat> history;
     Boolean imageExists;
 
     public ImageData() {
         this.imageExists = false;
         imageUtils = new ImageUtils();
-        history = new LinkedList();
-        this.height = 0;
-        this.width = 0;
-
-        imageMeasures = "width: " + this.width
-                + " x height: " + this.height;
+        imageMeasures = "width: 0 x height: 0";
     }
 
     public void setMat(Mat mat) {
         imageExists = true;
         this.originalMat = mat;
-        this.adjustedMat = mat;
+        this.transformedMat = mat;
+        this.processedMat = mat;
         this.updateMat();
     }
 
     public void updateMat() {
-        if (!adjustedMat.empty()) {
-            history.add(adjustedMat);
-        }
-        image = this.imageUtils.matToImage(adjustedMat);
-        this.width = (int) image.getWidth();
-        this.height = (int) image.getHeight();
+//        if (!adjustedMat.empty()) {
+//            history.add(adjustedMat);
+//        }
+        image = this.imageUtils.matToImage(this.processedMat);
+        imageMeasures = "width: " + this.processedMat.width()
+                + " x height: " + this.processedMat.height();
         this.calculateHistogram();
     }
 
     public Image getImage() {
         return image;
     }
-    public boolean exists(){
+
+    public boolean exists() {
         return imageExists;
     }
 
     public String getImageMeasures() {
-        imageMeasures = "width: " + this.width
-                + " x height: " + this.height;
         return imageMeasures;
     }
 
@@ -67,14 +59,20 @@ public class ImageData {
         return this.originalMat;
     }
 
-    public void useMethod(Method method) {
-        this.adjustedMat = method.process(this.originalMat);
+    public void useTransformingMethod(Method method) {
+        this.processedMat = method.process(this.processedMat);
+        this.transformedMat = this.processedMat;
+        this.updateMat();
+    }
+
+    public void useProcessingMethod(Method method) {
+        this.processedMat = method.process(this.transformedMat);
         this.updateMat();
     }
 
     public void calculateHistogram() {
         Histogram hs = new Histogram();
-        this.histogram = imageUtils.matToImage(hs.createHistogram(this.adjustedMat));
+        this.histogram = imageUtils.matToImage(hs.createHistogram(this.processedMat));
     }
 
 }
