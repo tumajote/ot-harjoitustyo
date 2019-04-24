@@ -12,12 +12,10 @@ public class ImageData {
     Mat transformedMat;
     Mat processedMat;
     Image histogram;
-    ImageUtils imageUtils;
     Boolean imageExists;
 
     public ImageData() {
         this.imageExists = false;
-        imageUtils = new ImageUtils();
         imageMeasures = "width: 0 x height: 0";
     }
 
@@ -33,7 +31,7 @@ public class ImageData {
 //        if (!adjustedMat.empty()) {
 //            history.add(adjustedMat);
 //        }
-        image = this.imageUtils.matToImage(this.processedMat);
+        image = ImageUtils.matToImage(this.processedMat);
         imageMeasures = "width: " + this.processedMat.width()
                 + " x height: " + this.processedMat.height();
         this.calculateHistogram();
@@ -71,8 +69,7 @@ public class ImageData {
     }
 
     public void calculateHistogram() {
-        Histogram hs = new Histogram();
-        this.histogram = imageUtils.matToImage(hs.createHistogram(this.processedMat));
+        this.histogram = ImageUtils.matToImage(Histogram.createHistogram(this.processedMat));
     }
 
 }

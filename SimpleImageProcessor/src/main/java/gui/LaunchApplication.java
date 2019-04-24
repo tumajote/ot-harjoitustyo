@@ -1,10 +1,9 @@
 package gui;
 
-import fileio.FileLoader;
+import fileio.FileIo;
 import domain.ImageData;
 import domain.methods.BrightnessAndContrast;
 import domain.methods.Rotate;
-import fileio.FileSaver;
 import java.io.File;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
@@ -27,13 +26,12 @@ import javafx.stage.Stage;
 
 public class LaunchApplication extends Application {
 
-    ImageView currentImage;
-    ImageView histogram;
-    ImageData imageData;
-    Label widthXHeight;
-    BorderPane setup;
-    Slider brightnessSlider;
-    Slider contrastSlider;
+    static ImageView currentImage;
+    static ImageView histogram;
+    static ImageData imageData;
+    static Label widthXHeight;
+    static Slider brightnessSlider;
+    static Slider contrastSlider;
 
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
@@ -63,8 +61,7 @@ public class LaunchApplication extends Application {
         brightnessSlider.setBlockIncrement(1.0);
         brightnessSlider.valueProperty().addListener(brightnessSliderListener);
         Label brightnessLabel = new Label("Brightness:");
-        HBox bightnessLabelAndReset = new HBox(10.0,brightnessLabel,resetBrigthnessButton);
-
+        HBox bightnessLabelAndReset = new HBox(10.0, brightnessLabel, resetBrigthnessButton);
 
         //Slider and reset button for contrast adjustement
         Button resetContrastButton = new Button("Reset");
@@ -75,7 +72,7 @@ public class LaunchApplication extends Application {
         contrastSlider.setBlockIncrement(0.1);
         contrastSlider.valueProperty().addListener(contrastSliderListener);
         Label contrastLabel = new Label("Contrast:");
-        HBox contrastLabelAndReset = new HBox(10.0,contrastLabel,resetContrastButton);
+        HBox contrastLabelAndReset = new HBox(10.0, contrastLabel, resetContrastButton);
 
         //Imageviewer and histogram
         currentImage = new ImageView();
@@ -97,7 +94,7 @@ public class LaunchApplication extends Application {
         controls.getChildren().add(contrastSlider);
 
         //General layout
-        setup = new BorderPane();
+        BorderPane setup = new BorderPane();
         setup.setLeft(controls);
         setup.setCenter(currentImage);
         setup.setPrefWidth(1500);
@@ -113,23 +110,19 @@ public class LaunchApplication extends Application {
     public static void main(String[] args) {
         launch(LaunchApplication.class);
     }
-    
+
     //Load button event listener
     EventHandler<ActionEvent> btnLoadEventListener
             = new EventHandler<ActionEvent>() {
 
         @Override
         public void handle(ActionEvent t) {
-            FileLoader fileloader = new FileLoader();
-            FileChooserWindow loadFile = new FileChooserWindow();
-            loadFile.openFile();
-            File file = loadFile.getFile();
-            fileloader.loadImage(imageData, file);
-            ImageUpdate imageUpdate = new ImageUpdate();
-            imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
+            File file = FileChooserWindow.openFile();
+            FileIo.loadImage(imageData, file);
+            ImageUpdate.update();
         }
     };
-    
+
     //Save button event listener
     EventHandler<ActionEvent> btnSaveEventListener
             = new EventHandler<ActionEvent>() {
@@ -139,11 +132,9 @@ public class LaunchApplication extends Application {
             if (!imageData.exists()) {
                 return;
             }
-            FileSaver fileSaver = new FileSaver();
-            FileChooserWindow saveFile = new FileChooserWindow();
-            saveFile.saveFile();
-            File file = saveFile.getFile();
-            Boolean success = fileSaver.saveImage(imageData, file);
+            
+            File file = FileChooserWindow.saveFile();
+            Boolean success = FileIo.saveImage(imageData, file);
             if (success) {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Save file success");
@@ -162,7 +153,7 @@ public class LaunchApplication extends Application {
 
         }
     };
-    
+
     //Rotate button event listener
     EventHandler<ActionEvent> btnRotateEventListener
             = new EventHandler<ActionEvent>() {
@@ -172,11 +163,10 @@ public class LaunchApplication extends Application {
                 return;
             }
             imageData.useTransformingMethod(new Rotate());
-            ImageUpdate imageUpdate = new ImageUpdate();
-            imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
+            ImageUpdate.update();
         }
     };
-    
+
     //Brightness slider change listener
     ChangeListener<Number> brightnessSliderListener
             = new ChangeListener<Number>() {
@@ -186,15 +176,15 @@ public class LaunchApplication extends Application {
                 return;
             }
             BrightnessAndContrast brightness = new BrightnessAndContrast();
+            //Values
             System.out.println(newValue);
             System.out.println(contrastSlider.getValue());
             brightness.setAlphAndBeta(contrastSlider.getValue(), (double) newValue);
             imageData.useProcessingMethod(brightness);
-            ImageUpdate imageUpdate = new ImageUpdate();
-            imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
+            ImageUpdate.update();
         }
     };
-    
+
     //Brightness reset button event listener
     EventHandler<ActionEvent> resetBrigthnessButtonEventListener
             = new EventHandler<ActionEvent>() {
@@ -207,13 +197,11 @@ public class LaunchApplication extends Application {
             BrightnessAndContrast brightness = new BrightnessAndContrast();
             brightness.setAlphAndBeta(contrastSlider.getValue(), 0);
             imageData.useProcessingMethod(brightness);
-            ImageUpdate imageUpdate = new ImageUpdate();
-            imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
-            
+            ImageUpdate.update();
+
         }
     };
 
-    
     //Contrast slider change listener
     ChangeListener<Number> contrastSliderListener
             = new ChangeListener<Number>() {
@@ -223,15 +211,15 @@ public class LaunchApplication extends Application {
                 return;
             }
             BrightnessAndContrast contrast = new BrightnessAndContrast();
+            //Values
             System.out.println(newValue);
             System.out.println(brightnessSlider.getValue());
             contrast.setAlphAndBeta((double) newValue, brightnessSlider.getValue());
             imageData.useProcessingMethod(contrast);
-            ImageUpdate imageUpdate = new ImageUpdate();
-            imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
+            ImageUpdate.update();
         }
     };
-    
+
     //Contrast reset button event listener
     EventHandler<ActionEvent> resetContrastButtonEventListener
             = new EventHandler<ActionEvent>() {
@@ -244,9 +232,8 @@ public class LaunchApplication extends Application {
             BrightnessAndContrast brightness = new BrightnessAndContrast();
             brightness.setAlphAndBeta(1, brightnessSlider.getValue());
             imageData.useProcessingMethod(brightness);
-            ImageUpdate imageUpdate = new ImageUpdate();
-            imageUpdate.update(imageData, histogram, currentImage, widthXHeight);
-            
+            ImageUpdate.update();
+
         }
     };
 

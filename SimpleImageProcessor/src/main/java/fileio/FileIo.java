@@ -5,9 +5,9 @@ import java.io.File;
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 
-public class FileLoader {
+public class FileIo {
 
-    public String loadImage(ImageData imageData, File file) {
+    public static String loadImage(ImageData imageData, File file) {
         String path = "not found";
         try {
             nu.pattern.OpenCV.loadLibrary();
@@ -18,5 +18,17 @@ public class FileLoader {
             System.out.println("Error");
         }
         return path;
+    }
+
+    public static boolean saveImage(ImageData imageData, File file) {
+        boolean success = false;
+        try {
+            nu.pattern.OpenCV.loadLibrary();
+            success = Highgui.imwrite(file.getCanonicalPath(), imageData.getMat());
+
+        } catch (Exception ex) {
+            System.out.println("Error");
+        }
+        return success;
     }
 }

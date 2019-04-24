@@ -2,7 +2,7 @@
 package Tests;
 
 import domain.ImageData;
-import fileio.FileLoader;
+import fileio.FileIo;
 import java.io.File;
 import java.io.IOException;
 import org.junit.Before;
@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  * @author tmjterho
  */
 public class FileIOTest {
-    FileLoader fileLoader;
+    FileIo fileLoader;
     ImageData imageData;
     File file;
     String path;
@@ -29,7 +29,7 @@ public class FileIOTest {
         file = new File("test.JPG");
         path = file.getCanonicalPath();
         
-        fileLoader = new FileLoader();
+        fileLoader = new FileIo();
         imageData = new ImageData();
       
     

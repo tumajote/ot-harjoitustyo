@@ -1,13 +1,14 @@
 package gui;
 
-import domain.ImageData;
-import javafx.scene.control.Label;
+import static gui.LaunchApplication.currentImage;
+import static gui.LaunchApplication.histogram;
+import static gui.LaunchApplication.imageData;
+import static gui.LaunchApplication.widthXHeight;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class ImageUpdate {
 
-    public void update(ImageData imageData, ImageView histogram, ImageView currentImage, Label widthXHeight) {
+    static public void update() {
         Image image = imageData.getImage();
 
         currentImage.setImage(image);

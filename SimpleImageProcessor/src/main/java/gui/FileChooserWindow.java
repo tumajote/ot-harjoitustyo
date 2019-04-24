@@ -1,16 +1,12 @@
 package gui;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.stage.FileChooser;
 
 public class FileChooserWindow {
 
-    File file;
 
-    public File openFile() {
+    static public File openFile() {
         FileChooser fileChooser = new FileChooser();
 
         FileChooser.ExtensionFilter extFilterJPG
@@ -24,10 +20,10 @@ public class FileChooserWindow {
         fileChooser.getExtensionFilters()
                 .addAll(extFilterJPG, extFilterjpg, extFilterPNG, extFilterpng);
 
-        this.file = fileChooser.showOpenDialog(null);
-        return file;
+        
+        return  fileChooser.showOpenDialog(null);
     }
-    public File saveFile() {
+    static public File saveFile() {
         FileChooser fileChooser = new FileChooser();
 
         FileChooser.ExtensionFilter extFilterJPG
@@ -41,22 +37,7 @@ public class FileChooserWindow {
         fileChooser.getExtensionFilters()
                 .addAll(extFilterJPG, extFilterjpg, extFilterPNG, extFilterpng);
 
-        this.file = fileChooser.showSaveDialog(null);
-        return file;
+        
+        return fileChooser.showSaveDialog(null);
     }
-
-    public String getPath() {
-        String path = null;
-        try {
-            path = file.getCanonicalPath();
-        } catch (IOException ex) {
-            Logger.getLogger(FileChooserWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return path;
-    }
-
-    public File getFile() {
-        return file;
-    }
-
 }

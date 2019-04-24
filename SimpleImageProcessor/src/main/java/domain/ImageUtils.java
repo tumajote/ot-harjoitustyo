@@ -8,7 +8,7 @@ import org.opencv.highgui.Highgui;
 
 public class ImageUtils {
 
-    public Image matToImage(Mat mat) {
+    public static Image matToImage(Mat mat) {
         nu.pattern.OpenCV.loadLibrary();
         MatOfByte byteMat = new MatOfByte();
         Highgui.imencode(".bmp", mat, byteMat);

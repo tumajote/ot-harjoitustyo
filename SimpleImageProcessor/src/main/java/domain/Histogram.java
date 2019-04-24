@@ -13,7 +13,7 @@ import org.opencv.imgproc.Imgproc;
 
 public class Histogram {
 
-    public Mat createHistogram(Mat mat) {
+    static public Mat createHistogram(Mat mat) {
         List<Mat> bgrPlanes = new ArrayList<>();
         Core.split(mat, bgrPlanes);
         int histSize = 256;
