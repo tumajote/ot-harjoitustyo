@@ -1,4 +1,4 @@
-package domain;
+package sip.domain;
 
 import java.io.ByteArrayInputStream;
 import javafx.scene.image.Image;

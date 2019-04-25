@@ -1,8 +1,8 @@
 
-package Tests;
+package sip.Tests;
 
-import domain.ImageData;
-import fileio.FileIo;
+import sip.domain.ImageData;
+import sip.fileio.FileIo;
 import java.io.File;
 import java.io.IOException;
 import org.junit.Before;

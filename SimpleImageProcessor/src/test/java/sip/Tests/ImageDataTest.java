@@ -1,6 +1,6 @@
-package Tests;
+package sip.Tests;
 
-import domain.ImageData;
+import sip.domain.ImageData;
 import java.io.File;
 import java.io.IOException;
 import org.junit.Before;

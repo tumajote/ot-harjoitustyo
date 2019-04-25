@@ -5,7 +5,6 @@
     "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
-    <suppress files="gui.LaunchApplication.java" checks="[a-zA-Z0-9]*"/>
-    <suppress files="gui.FileIO.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="sip.gui.LaunchApplication.java" checks="[a-zA-Z0-9]*"/>
     
 </suppressions>

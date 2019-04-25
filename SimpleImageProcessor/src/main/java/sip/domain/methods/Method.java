@@ -1,8 +1,8 @@
-package domain.methods;
+package sip.domain.methods;
 
 import org.opencv.core.Mat;
 
 public interface Method {
 
-     Mat process(Mat mat);
+    Mat process(Mat mat);
 }

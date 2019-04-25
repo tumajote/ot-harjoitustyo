@@ -1,6 +1,6 @@
-package domain;
+package sip.domain;
 
-import domain.methods.Method;
+import sip.domain.methods.Method;
 import javafx.scene.image.Image;
 import org.opencv.core.Mat;
 
@@ -57,9 +57,13 @@ public class ImageData {
         return this.originalMat;
     }
 
+    public Mat getProcessedMat() {
+        return processedMat;
+    }
+
     public void useTransformingMethod(Method method) {
         this.processedMat = method.process(this.processedMat);
-        this.transformedMat = this.processedMat;
+        this.transformedMat = method.process(this.transformedMat);
         this.updateMat();
     }
 

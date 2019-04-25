@@ -1,6 +1,6 @@
-package fileio;
+package sip.fileio;
 
-import domain.ImageData;
+import sip.domain.ImageData;
 import java.io.File;
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;

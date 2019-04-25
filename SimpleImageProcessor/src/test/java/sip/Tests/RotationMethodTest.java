@@ -1,7 +1,7 @@
-package Tests;
+package sip.Tests;
 
-import domain.ImageData;
-import domain.methods.Rotate;
+import sip.domain.ImageData;
+import sip.domain.methods.Rotate;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,11 +47,11 @@ public class RotationMethodTest {
 
         // Rotate image with method class
         Rotate rotate = new Rotate();
-        imageData.useProcessingMethod(rotate);
+        imageData.useTransformingMethod(rotate);
 
         // Compare the matrixes
         Mat result = new Mat();
-        mat = imageData.getMat();
+        mat = imageData.getProcessedMat();
         Core.compare(mat, newMat, result, Core.CMP_NE);
         ArrayList<Mat> channels = new ArrayList();
         Core.split(result, channels);

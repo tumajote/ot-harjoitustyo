@@ -1,9 +1,9 @@
-package gui;
+package sip.gui;
 
-import static gui.LaunchApplication.currentImage;
-import static gui.LaunchApplication.histogram;
-import static gui.LaunchApplication.imageData;
-import static gui.LaunchApplication.widthXHeight;
+import static sip.gui.LaunchApplication.currentImage;
+import static sip.gui.LaunchApplication.histogram;
+import static sip.gui.LaunchApplication.imageData;
+import static sip.gui.LaunchApplication.widthXHeight;
 import javafx.scene.image.Image;
 
 public class ImageUpdate {

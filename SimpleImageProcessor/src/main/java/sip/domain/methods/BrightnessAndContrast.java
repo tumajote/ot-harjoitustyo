@@ -1,4 +1,4 @@
-package domain.methods;
+package sip.domain.methods;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;

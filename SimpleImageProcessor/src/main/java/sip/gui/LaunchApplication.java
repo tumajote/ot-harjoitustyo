@@ -1,9 +1,9 @@
-package gui;
+package sip.gui;
 
-import fileio.FileIo;
-import domain.ImageData;
-import domain.methods.BrightnessAndContrast;
-import domain.methods.Rotate;
+import sip.fileio.FileIo;
+import sip.domain.ImageData;
+import sip.domain.methods.BrightnessAndContrast;
+import sip.domain.methods.Rotate;
 import java.io.File;
 import java.io.FileNotFoundException;
 import javafx.application.Application;

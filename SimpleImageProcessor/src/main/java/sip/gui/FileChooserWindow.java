@@ -1,4 +1,4 @@
-package gui;
+package sip.gui;
 
 import java.io.File;
 import javafx.stage.FileChooser;
