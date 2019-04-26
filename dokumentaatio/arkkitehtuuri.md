@@ -1,3 +1,11 @@
+## Rakenne
+
+Ohjelman rakenne noudattaa kerrosarkkitehtuuria. Koodin pakkausrakenne on seuraavanlainen:
+
+<img src="https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/Packets.png">
+
+Pakkaus _sip.gui_ sisältää JavaFX käyttöliittymän _sip.domain_ ja _sip.domain.methods_ sovelluslogiikan ja _fileIo_ levyltä lataamiseen ja sinne tallentamiseen liittyvän koodi.
+
 ## Sovelluslogiikka
 
 Sovelluksen sovelluslogiikka perustuu Imagedata-luokalle, joka sisältää kuvatiedoston matriisiesityksenä (openCV Mat-olio). Imagedata olio saa matriisin FileLoader luokalta, jolle annetaan polku kuvatiedostoon (joko jpeg tai png). Fileloader luokka muuntaa kuvan matriisiksi ja asettaa sen Imagedata kuvan muuttujaksi. Imagedata päivittää kyseisen kuvan ja sen ominaisuudet(koko, histogrammi) graafiseen käyttöliittymään. 
