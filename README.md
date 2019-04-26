@@ -16,13 +16,6 @@
 
 ## Komentorivitoiminnot
 
-### Käynnistys
-
-Ohjelma käynnistyy komennolla
-```
-mvn compile exec:java -Dexec.mainClass=sip.gui.LaunchApplication
-```
-
 ### Testaus
 
 Testit suoritetaan komennolla
