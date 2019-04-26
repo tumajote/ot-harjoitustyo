@@ -3,9 +3,16 @@ package sip.gui;
 import java.io.File;
 import javafx.stage.FileChooser;
 
+/**
+ *
+ * @author tmjterho
+ */
 public class FileChooserWindow {
 
-
+    /**
+     *
+     * @return
+     */
     static public File openFile() {
         FileChooser fileChooser = new FileChooser();
 
@@ -23,6 +30,11 @@ public class FileChooserWindow {
         
         return  fileChooser.showOpenDialog(null);
     }
+
+    /**
+     *
+     * @return
+     */
     static public File saveFile() {
         FileChooser fileChooser = new FileChooser();
 

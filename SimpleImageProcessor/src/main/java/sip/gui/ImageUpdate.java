@@ -6,8 +6,15 @@ import static sip.gui.LaunchApplication.imageData;
 import static sip.gui.LaunchApplication.widthXHeight;
 import javafx.scene.image.Image;
 
+/**
+ *
+ * @author tmjterho
+ */
 public class ImageUpdate {
 
+    /**
+     *
+     */
     static public void update() {
         Image image = imageData.getImage();
 

@@ -1,5 +1,5 @@
 
-package sip.Tests;
+package sip.fileiotests;
 
 import sip.domain.ImageData;
 import sip.fileio.FileIo;
@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  * @author tmjterho
  */
 public class FileIOTest {
-    FileIo fileLoader;
+    
     ImageData imageData;
     File file;
     String path;
@@ -29,7 +29,7 @@ public class FileIOTest {
         file = new File("test.JPG");
         path = file.getCanonicalPath();
         
-        fileLoader = new FileIo();
+       
         imageData = new ImageData();
       
     
@@ -38,8 +38,7 @@ public class FileIOTest {
     
     @Test
     public void pathIsCorrect(){     
-        assertEquals(path, fileLoader.loadImage(imageData, file));
-        
+        assertEquals(path, FileIo.loadImage(imageData, file));
     }
     
 }

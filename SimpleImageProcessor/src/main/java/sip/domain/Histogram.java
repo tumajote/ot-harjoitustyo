@@ -11,9 +11,21 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
+/**
+ *
+ * Utility class for creating histograms
+ */
 public class Histogram {
 
-    static public Mat createHistogram(Mat mat) {
+    /**
+     *
+     * Calculates an histogram 
+     * @param mat the source image in the form of a Mat object
+     * 
+     * @return The histogram in a mat format  
+     */
+    static public Mat calculate(Mat mat) {
+        
         List<Mat> bgrPlanes = new ArrayList<>();
         Core.split(mat, bgrPlanes);
         int histSize = 256;

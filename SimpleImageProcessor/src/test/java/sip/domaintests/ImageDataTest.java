@@ -1,4 +1,4 @@
-package sip.Tests;
+package sip.domaintests;
 
 import sip.domain.ImageData;
 import java.io.File;

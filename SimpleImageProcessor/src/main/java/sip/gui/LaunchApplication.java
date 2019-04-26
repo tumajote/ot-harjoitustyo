@@ -24,6 +24,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ *
+ * @author tmjterho
+ */
 public class LaunchApplication extends Application {
 
     static ImageView currentImage;
@@ -107,6 +111,10 @@ public class LaunchApplication extends Application {
 
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch(LaunchApplication.class);
     }
@@ -130,6 +138,13 @@ public class LaunchApplication extends Application {
         @Override
         public void handle(ActionEvent t) {
             if (!imageData.exists()) {
+                 Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("No image");
+                alert.setHeaderText(null);
+                alert.setContentText("No image to save!");
+
+                alert.showAndWait();
+                
                 return;
             }
             
