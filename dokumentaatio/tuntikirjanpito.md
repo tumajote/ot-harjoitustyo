@@ -11,4 +11,6 @@
 | 15.4  | 2    | Testi kuvan kääntämiselle|
 | 16.4  | 6    | Sekvenssikaavio, jar ja siivoilua|
 | 23.4	| 6    | Kirkkaus ja kontrasti säädöt|
-| 24.4  | 6    | Kirkkaus ja kontrasti säädöt ja asetusten palauttaminen ja kuvan tilaan liittyvää suunnittelua
+| 24.4  | 6    | Kirkkaus ja kontrasti säädöt ja asetusten palauttaminen ja kuvan tilaan liittyvää suunnittelua|
+| 25.4  | 6    | Koodikatselmointi|
+|       | 53   | Yhteensä|
