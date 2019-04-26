@@ -126,6 +126,9 @@ public class LaunchApplication extends Application {
         @Override
         public void handle(ActionEvent t) {
             File file = FileChooserWindow.openFile();
+            if (file == null) {
+                return;
+            }
             FileIo.loadImage(imageData, file);
             ImageUpdate.update();
         }
@@ -138,17 +141,41 @@ public class LaunchApplication extends Application {
         @Override
         public void handle(ActionEvent t) {
             if (!imageData.exists()) {
-                 Alert alert = new Alert(AlertType.INFORMATION);
+                Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("No image");
                 alert.setHeaderText(null);
                 alert.setContentText("No image to save!");
 
                 alert.showAndWait();
-                
+
                 return;
             }
-            
+
             File file = FileChooserWindow.saveFile();
+
+            if (file == null) {
+                return;
+            }
+
+            if (!file.getAbsolutePath().endsWith(".png") || !file.getAbsolutePath().endsWith(".jpeg")) {
+                Boolean noExtension = true;
+                while (noExtension) {
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Choose image type");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please add extension .jpeg or .png to the file name");
+                    alert.showAndWait();
+                    file = FileChooserWindow.saveFile();
+                    if (file == null) {
+                        return;
+                    }
+                    if (file.getAbsolutePath().endsWith(".png") || file.getAbsolutePath().endsWith(".jpeg")) {
+                        noExtension = false;
+                    }
+
+                }
+
+            }
             Boolean success = FileIo.saveImage(imageData, file);
             if (success) {
                 Alert alert = new Alert(AlertType.INFORMATION);

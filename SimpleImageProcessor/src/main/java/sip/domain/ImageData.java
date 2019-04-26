@@ -3,11 +3,10 @@ package sip.domain;
 import sip.domain.methods.Method;
 import javafx.scene.image.Image;
 import org.opencv.core.Mat;
-import sip.domain.methods.BrightnessAndContrast;
 
 /**
  *
- * Maintains the state the of the processed image as multiple Mat objects
+ * Class for maintaining the state the of the loaded image
  */
 public class ImageData {
 

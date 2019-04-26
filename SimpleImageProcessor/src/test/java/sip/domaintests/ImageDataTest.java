@@ -23,19 +23,32 @@ public class ImageDataTest {
 
     @Before
     public void setUp() throws IOException {
-        imageData = new ImageData();
-
         nu.pattern.OpenCV.loadLibrary();
         File file = new File("test.JPG");
-        System.out.println(file.getCanonicalPath());
         this.mat = Highgui.imread(file.getCanonicalPath());
-        imageData.setMat(mat);
+         imageData = new ImageData();
     }
 
+    @Test
+    public void existIsCorrectifEmpty() {
+        assertFalse(imageData.exists());
+    }
+    
     
     @Test
-    public void outputIsCorrect() {
-        
+    public void measureOutputIsCorrectIfEmpty() {
+        assertEquals("width: 0 x height: 0", imageData.getImageMeasures());
+    }
+    
+    @Test
+    public void existIsCorrect() {
+        imageData.setMat(mat);
+        assertTrue(imageData.exists());
+    }
+    
+    @Test
+    public void measureOutputIsCorrect() {
+        imageData.setMat(mat);
         assertEquals("width: 2685 x height: 1846", imageData.getImageMeasures());
     }
 

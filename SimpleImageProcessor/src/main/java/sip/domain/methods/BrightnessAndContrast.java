@@ -17,6 +17,7 @@ public class BrightnessAndContrast implements Method {
      */
     public BrightnessAndContrast() {
         this.beta = 0.0;
+        this.alpha = 1.0;
     }
 
     /**
