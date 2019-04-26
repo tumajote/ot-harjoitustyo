@@ -7,6 +7,9 @@
 
 [Arkkitehtuuri](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
+[Käyttöohje](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
+
+
 ## Releaset
 
 [Viikko5](https://github.com/tumajote/ot-harjoitustyo/releases/tag/viikko5)
