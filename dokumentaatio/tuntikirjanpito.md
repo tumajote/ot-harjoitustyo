@@ -13,4 +13,5 @@
 | 23.4	| 6    | Kirkkaus ja kontrasti säädöt|
 | 24.4  | 6    | Kirkkaus ja kontrasti säädöt ja asetusten palauttaminen ja kuvan tilaan liittyvää suunnittelua|
 | 25.4  | 6    | Koodikatselmointi|
-|       | 53   | Yhteensä|
+| 26.4  | 6    | Uusia ominaisuuksia, testejä, kuvan tallentamisen säätöä, käyttöohje, arkkitehtuuri ja javadoc|
+|       | 59   | Yhteensä|
