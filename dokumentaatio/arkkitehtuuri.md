@@ -20,7 +20,7 @@ Imagedatan ja ohjelman muiden osien suhdetta kuvaava luokka/pakkauskaavio:
 
 Kuvatiedoston lataamisesta ja tallentamisesta levylle huolehtii fileIo-luokka. Tuettavat kuvatiedostot ovat jpeg ja dng.
 
-### Päätoiminnallisuudet
+## Päätoiminnallisuudet
 
 Kuvataan seuraavaksi sovelluksen toimintalogiikka päätoiminnallisuuden osalta sekvenssikaaviona.
 
