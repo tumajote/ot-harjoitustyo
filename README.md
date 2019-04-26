@@ -13,6 +13,7 @@
 ## Releaset
 
 [Viikko5](https://github.com/tumajote/ot-harjoitustyo/releases/tag/viikko5)
+[Viikko6](https://github.com/tumajote/ot-harjoitustyo/releases/tag/Viikko6)
 
 ## Komentorivitoiminnot
 
