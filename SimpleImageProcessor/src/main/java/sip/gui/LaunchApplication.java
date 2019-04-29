@@ -12,6 +12,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -55,6 +56,11 @@ public class LaunchApplication extends Application {
         //Rotate button
         Button rotateButton = new Button("Rotate image");
         rotateButton.setOnAction(btnRotateEventListener);
+        
+        //Reset all button 
+        Button resetAllButton = new Button("Reset all");
+        resetAllButton.setOnAction(btnResetAllEventListener);
+        
 
         //Slider and reset button for brightness adjustement 
         Button resetBrigthnessButton = new Button("Reset");
@@ -96,6 +102,7 @@ public class LaunchApplication extends Application {
         controls.getChildren().add(brightnessSlider);
         controls.getChildren().add(contrastLabelAndReset);
         controls.getChildren().add(contrastSlider);
+        controls.getChildren().add(resetAllButton);
 
         //General layout
         BorderPane setup = new BorderPane();
@@ -278,5 +285,19 @@ public class LaunchApplication extends Application {
 
         }
     };
+    
+    
+    //Reset all button event listener
+    EventHandler<ActionEvent> btnResetAllEventListener
+            = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent t) {
+            if (!imageData.exists()) {
+                return;
+            }
+            imageData.resetAll();
+            ImageUpdate.update();
 
+        }
+    };
 }

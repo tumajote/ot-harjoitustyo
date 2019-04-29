@@ -138,5 +138,9 @@ public class ImageData {
     public void calculateHistogram() {
         this.histogram = ImageUtils.matToImage(Histogram.calculate(this.processedMat));
     }
+    public void resetAll() {
+        setMat(originalMat);
+        updateMat();
+    }
 
 }
