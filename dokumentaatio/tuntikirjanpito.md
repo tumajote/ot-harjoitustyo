@@ -14,4 +14,6 @@
 | 24.4  | 6    | Kirkkaus ja kontrasti säädöt ja asetusten palauttaminen ja kuvan tilaan liittyvää suunnittelua|
 | 25.4  | 6    | Koodikatselmointi|
 | 26.4  | 6    | Uusia ominaisuuksia, testejä, kuvan tallentamisen säätöä, käyttöohje, arkkitehtuuri ja javadoc|
-|       | 59   | Yhteensä|
+| 29.4  | 2    | Reset all ja terävyyden säätö|
+| 30.4  | 6    | Terävyyden säätö jatkuu ja muuta pientä korjailua|
+|       | 68   | Yhteensä|
