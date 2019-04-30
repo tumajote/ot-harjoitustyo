@@ -5,7 +5,7 @@ import org.opencv.core.Mat;
 
 /**
  *
- * A Class that applies brightness and contrast adjustments to a Mat object 
+ * A Class that applies brightness and contrast adjustments to a Mat object
  */
 public class BrightnessAndContrast implements Method {
 
@@ -21,17 +21,24 @@ public class BrightnessAndContrast implements Method {
     }
 
     /**
-     *Sets the parameters for the adjustment
+     * Sets the parameters for the adjustment
+     *
      * @param alpha The parameter for the brightness adjustment
      * @param beta The parameter for the contrast adjustment
      */
-    public void setAlphAndBeta(double alpha, double beta) {
-        this.beta = beta;
+    public void setAlpha(Double alpha) {
         this.alpha = alpha;
     }
 
+    public void setBeta(Double beta) {
+        this.beta = beta;
+    }
+
+   
+
     /**
-     *Applies the contrast and brightness adjustment
+     * Applies the contrast and brightness adjustment
+     *
      * @param oldMat the Mat object to process
      * @return the processed Mat object
      */
@@ -41,8 +48,6 @@ public class BrightnessAndContrast implements Method {
 
         Mat newMat = Mat.zeros(oldMat.size(), oldMat.type());
         oldMat.convertTo(newMat, -1, alpha, beta);
-
- 
 
         return newMat;
     }

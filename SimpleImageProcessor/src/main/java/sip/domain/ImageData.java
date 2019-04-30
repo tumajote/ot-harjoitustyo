@@ -3,6 +3,9 @@ package sip.domain;
 import sip.domain.methods.Method;
 import javafx.scene.image.Image;
 import org.opencv.core.Mat;
+import sip.domain.methods.BrightnessAndContrast;
+import sip.domain.methods.Rotate;
+import sip.domain.methods.Sharpness;
 
 /**
  *
@@ -10,6 +13,7 @@ import org.opencv.core.Mat;
  */
 public class ImageData {
 
+    //Image data
     Image image;
     String imageMeasures;
     Mat originalMat;
@@ -18,12 +22,20 @@ public class ImageData {
     Image histogram;
     Boolean imageExists;
 
+    //Methods
+    Rotate rotate;
+    BrightnessAndContrast brightnessAndContrast;
+    Sharpness sharpness;
+    
     /**
      *
      */
     public ImageData() {
         this.imageExists = false;
         imageMeasures = "width: 0 x height: 0";
+        rotate = new Rotate();
+        brightnessAndContrast = new BrightnessAndContrast();
+        sharpness = new Sharpness();
     }
 
     /**
@@ -111,24 +123,33 @@ public class ImageData {
     }
 
     /**
-     *Applies the shape transforming method given as a parameter to the loaded image. Saves the transformed Mat object to the transformedMat and processedMat
+     *Applies the rotate method. Saves the transformed Mat object to the transformedMat and processedMat
      * variables.
-     * @param method an image transforming method that takes Mat object as a parameter and returns the transformed image as a Mat object
      */
-    public void useTransformingMethod(Method method) {
-        this.processedMat = method.process(this.processedMat);
-        this.transformedMat = method.process(this.transformedMat);
+    public void rotate() {
+        this.processedMat = rotate.process(this.processedMat);
+        this.transformedMat = rotate.process(this.transformedMat);
         this.updateMat();
+    }
+    
+    public void setBrigthnessValue(double beta) {
+        this.brightnessAndContrast.setBeta(beta);
+    }
+    public void setContrastValue(double beta) {
+        this.brightnessAndContrast.setAlpha(beta);
+    }
+    public void setSharpnessValue(double strength) {
+        sharpness.setStrength(strength);
     }
 
     /**
-     *Applies the processing method given as a parameter to the loaded image. Saves the processed Mat object to the processedMat
+     *Applies all the processing methods with their current parameters to the loaded image. Saves the processed Mat object to the processedMat
      * variable.
      * 
-     * @param method an image transforming method that takes Mat object as a parameter and returns the processed image as a Mat object
      */
-    public void useProcessingMethod(Method method) {
-        this.processedMat = method.process(this.transformedMat);
+    public void process() {
+        this.processedMat = brightnessAndContrast.process(this.transformedMat);
+        this.processedMat = sharpness.process(processedMat);
         this.updateMat();
     }
 
@@ -139,6 +160,9 @@ public class ImageData {
         this.histogram = ImageUtils.matToImage(Histogram.calculate(this.processedMat));
     }
     public void resetAll() {
+        this.setBrigthnessValue(0.0);
+        this.setContrastValue(1.0);
+        this.setSharpnessValue(0.0);
         setMat(originalMat);
         updateMat();
     }

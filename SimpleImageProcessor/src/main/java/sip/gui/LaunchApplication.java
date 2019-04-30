@@ -2,8 +2,6 @@ package sip.gui;
 
 import sip.fileio.FileIo;
 import sip.domain.ImageData;
-import sip.domain.methods.BrightnessAndContrast;
-import sip.domain.methods.Rotate;
 import java.io.File;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
@@ -12,7 +10,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -24,14 +21,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sip.domain.methods.Sharpness;
 
 /**
  *
  * @author tmjterho
  */
 public class LaunchApplication extends Application {
-
+    
     static ImageView currentImage;
     static ImageView histogram;
     static ImageData imageData;
@@ -39,10 +35,10 @@ public class LaunchApplication extends Application {
     static Slider brightnessSlider;
     static Slider contrastSlider;
     static Slider sharpnessSlider;
-
+    
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
-
+        
         imageData = new ImageData();
 
         // Load and save buttons
@@ -66,14 +62,13 @@ public class LaunchApplication extends Application {
 //        //Sharpen button 
 //        Button sharpnessButton = new Button("Sharpen");
 //        sharpnessButton.setOnAction(btnsharpenEventListener);
-
         //Slider and reset button for brightness adjustement 
         Button resetBrigthnessButton = new Button("Reset");
         resetBrigthnessButton.setOnAction(resetBrigthnessButtonEventListener);
         brightnessSlider = new Slider(-100, 100, 0);
         brightnessSlider.setShowTickMarks(true);
         brightnessSlider.setShowTickLabels(true);
-        brightnessSlider.setBlockIncrement(1.0);
+        brightnessSlider.setBlockIncrement(10.0);
         brightnessSlider.valueProperty().addListener(brightnessSliderListener);
         Label brightnessLabel = new Label("Brightness:");
         HBox bightnessLabelAndReset = new HBox(10.0, brightnessLabel, resetBrigthnessButton);
@@ -95,7 +90,7 @@ public class LaunchApplication extends Application {
         sharpnessSlider = new Slider(0, 3, 0);
         sharpnessSlider.setShowTickMarks(true);
         sharpnessSlider.setShowTickLabels(true);
-        sharpnessSlider.setBlockIncrement(1);
+        sharpnessSlider.setBlockIncrement(0.1);
         sharpnessSlider.valueProperty().addListener(sharpnessSliderListener);
         Label sharpnessLabel = new Label("Sharpness:");
         HBox sharpnessLabelAndReset = new HBox(10.0, sharpnessLabel, resetSharpnessButton);
@@ -128,12 +123,12 @@ public class LaunchApplication extends Application {
         setup.setCenter(currentImage);
         setup.setPrefWidth(1500);
         setup.setPrefHeight(1500);
-
+        
         Scene scene = new Scene(setup);
         primaryStage.setTitle("SimpleImageProcessor");
         primaryStage.setScene(scene);
         primaryStage.show();
-
+        
     }
 
     /**
@@ -147,7 +142,7 @@ public class LaunchApplication extends Application {
     //Load button event listener
     EventHandler<ActionEvent> btnLoadEventListener
             = new EventHandler<ActionEvent>() {
-
+        
         @Override
         public void handle(ActionEvent t) {
             File file = FileChooserWindow.openFile();
@@ -162,7 +157,7 @@ public class LaunchApplication extends Application {
     //Save button event listener
     EventHandler<ActionEvent> btnSaveEventListener
             = new EventHandler<ActionEvent>() {
-
+        
         @Override
         public void handle(ActionEvent t) {
             if (!imageData.exists()) {
@@ -170,36 +165,36 @@ public class LaunchApplication extends Application {
                 alert.setTitle("No image");
                 alert.setHeaderText(null);
                 alert.setContentText("No image to save!");
-
+                
                 alert.showAndWait();
-
+                
                 return;
             }
-
+            
             File file = FileChooserWindow.saveFile();
-
+            
             if (file == null) {
                 return;
             }
-
-            if (!file.getAbsolutePath().endsWith(".png") || !file.getAbsolutePath().endsWith(".jpeg")) {
+            
+            if (!file.getAbsolutePath().endsWith(".png") || !file.getAbsolutePath().endsWith(".jpg")) {
                 Boolean noExtension = true;
                 while (noExtension) {
                     Alert alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Choose image type");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Please add extension .jpeg or .png to the file name");
+                    alert.setTitle("File type missing");
+                    alert.setHeaderText("Choose file type!");
+                    alert.setContentText("Please add extension .jpg or .png to the file name");
                     alert.showAndWait();
                     file = FileChooserWindow.saveFile();
                     if (file == null) {
                         return;
                     }
-                    if (file.getAbsolutePath().endsWith(".png") || file.getAbsolutePath().endsWith(".jpeg")) {
+                    if (file.getAbsolutePath().endsWith(".png") || file.getAbsolutePath().endsWith(".jpg")) {
                         noExtension = false;
                     }
-
+                    
                 }
-
+                
             }
             Boolean success = FileIo.saveImage(imageData, file);
             if (success) {
@@ -207,17 +202,17 @@ public class LaunchApplication extends Application {
                 alert.setTitle("Save file success");
                 alert.setHeaderText(null);
                 alert.setContentText("File saved!");
-
+                
                 alert.showAndWait();
             } else {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle("Save file failure");
                 alert.setHeaderText("Save failed");
                 alert.setContentText("File not saved!");
-
+                
                 alert.showAndWait();
             }
-
+            
         }
     };
 
@@ -229,7 +224,8 @@ public class LaunchApplication extends Application {
             if (!imageData.exists()) {
                 return;
             }
-            imageData.useTransformingMethod(new Rotate());
+            imageData.rotate();
+            imageData.process();
             ImageUpdate.update();
         }
     };
@@ -242,12 +238,8 @@ public class LaunchApplication extends Application {
             if (!imageData.exists()) {
                 return;
             }
-            BrightnessAndContrast brightness = new BrightnessAndContrast();
-            //Values
-            System.out.println(newValue);
-            System.out.println(contrastSlider.getValue());
-            brightness.setAlphAndBeta(contrastSlider.getValue(), (double) newValue);
-            imageData.useProcessingMethod(brightness);
+            imageData.setBrigthnessValue((double) newValue);
+            imageData.process();
             ImageUpdate.update();
         }
     };
@@ -261,11 +253,10 @@ public class LaunchApplication extends Application {
                 return;
             }
             brightnessSlider.setValue(0);
-            BrightnessAndContrast brightness = new BrightnessAndContrast();
-            brightness.setAlphAndBeta(contrastSlider.getValue(), 0);
-            imageData.useProcessingMethod(brightness);
+            imageData.setBrigthnessValue(0);
+            imageData.process();
             ImageUpdate.update();
-
+            
         }
     };
 
@@ -277,12 +268,8 @@ public class LaunchApplication extends Application {
             if (!imageData.exists()) {
                 return;
             }
-            BrightnessAndContrast contrast = new BrightnessAndContrast();
-            //Values
-            System.out.println(newValue);
-            System.out.println(brightnessSlider.getValue());
-            contrast.setAlphAndBeta((double) newValue, brightnessSlider.getValue());
-            imageData.useProcessingMethod(contrast);
+            imageData.setContrastValue((double) newValue);
+            imageData.process();
             ImageUpdate.update();
         }
     };
@@ -296,11 +283,10 @@ public class LaunchApplication extends Application {
                 return;
             }
             contrastSlider.setValue(1);
-            BrightnessAndContrast brightness = new BrightnessAndContrast();
-            brightness.setAlphAndBeta(1, brightnessSlider.getValue());
-            imageData.useProcessingMethod(brightness);
+            imageData.setContrastValue(1);
+            imageData.process();
             ImageUpdate.update();
-
+            
         }
     };
 //Contrast slider change listener
@@ -311,12 +297,8 @@ public class LaunchApplication extends Application {
             if (!imageData.exists()) {
                 return;
             }
-            Sharpness sharpness = new Sharpness();
-            //Values
-            
-            
-            sharpness.setStrength((double)newValue);
-            imageData.useProcessingMethod(sharpness);
+            imageData.setSharpnessValue((double) newValue);
+            imageData.process();
             ImageUpdate.update();
         }
     };
@@ -329,12 +311,11 @@ public class LaunchApplication extends Application {
             if (!imageData.exists()) {
                 return;
             }
-            contrastSlider.setValue(1);
-            BrightnessAndContrast brightness = new BrightnessAndContrast();
-            brightness.setAlphAndBeta(1, brightnessSlider.getValue());
-            imageData.useProcessingMethod(brightness);
+            sharpnessSlider.setValue(0.0);
+            imageData.setSharpnessValue(0.0);
+            imageData.process();
             ImageUpdate.update();
-
+            
         }
     };
     //Reset all button event listener
@@ -350,7 +331,7 @@ public class LaunchApplication extends Application {
             sharpnessSlider.setValue(0);
             imageData.resetAll();
             ImageUpdate.update();
-
+            
         }
     };
 

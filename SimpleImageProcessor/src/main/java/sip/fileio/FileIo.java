@@ -40,7 +40,7 @@ public class FileIo {
         boolean success = false;
         try {
             nu.pattern.OpenCV.loadLibrary();
-            success = Highgui.imwrite(file.getCanonicalPath(), imageData.getOriginaltMat());
+            success = Highgui.imwrite(file.getCanonicalPath(), imageData.getProcessedMat());
 
         } catch (Exception ex) {
             System.out.println("Error");

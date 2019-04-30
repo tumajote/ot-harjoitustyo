@@ -47,7 +47,7 @@ public class RotationMethodTest {
 
         // Rotate image with method class
         Rotate rotate = new Rotate();
-        imageData.useTransformingMethod(rotate);
+        imageData.transform(rotate);
 
         // Compare the matrixes
         Mat result = new Mat();
