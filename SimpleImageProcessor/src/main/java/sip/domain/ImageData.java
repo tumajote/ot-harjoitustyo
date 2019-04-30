@@ -4,6 +4,7 @@ import sip.domain.methods.Method;
 import javafx.scene.image.Image;
 import org.opencv.core.Mat;
 import sip.domain.methods.BrightnessAndContrast;
+import sip.domain.methods.GrayScale;
 import sip.domain.methods.Rotate;
 import sip.domain.methods.Sharpness;
 
@@ -24,9 +25,10 @@ public class ImageData {
 
     //Methods
     Rotate rotate;
+    GrayScale grayScale;
     BrightnessAndContrast brightnessAndContrast;
     Sharpness sharpness;
-    
+
     /**
      *
      */
@@ -34,8 +36,10 @@ public class ImageData {
         this.imageExists = false;
         imageMeasures = "width: 0 x height: 0";
         rotate = new Rotate();
+        grayScale = new GrayScale();
         brightnessAndContrast = new BrightnessAndContrast();
         sharpness = new Sharpness();
+        
     }
 
     /**
@@ -88,7 +92,8 @@ public class ImageData {
     /**
      * Returns the measures of a loaded image in a string format
      *
-     * @return A string that contains the width and height of the loaded picture or 0 X 0 if there is no image
+     * @return A string that contains the width and height of the loaded picture
+     * or 0 X 0 if there is no image
      */
     public String getImageMeasures() {
         if (exists()) {
@@ -107,7 +112,8 @@ public class ImageData {
     }
 
     /**
-     *Returns the unprocessed Mat object of the loaded image
+     * Returns the unprocessed Mat object of the loaded image
+     *
      * @return The original Mat object
      */
     public Mat getOriginaltMat() {
@@ -115,7 +121,8 @@ public class ImageData {
     }
 
     /**
-     *Returns the processed Mat object of the loaded image
+     * Returns the processed Mat object of the loaded image
+     *
      * @return The processed Mat object
      */
     public Mat getProcessedMat() {
@@ -123,8 +130,8 @@ public class ImageData {
     }
 
     /**
-     *Applies the rotate method. Saves the transformed Mat object to the transformedMat and processedMat
-     * variables.
+     * Applies the rotate method. Saves the transformed Mat object to the
+     * transformedMat and processedMat variables.
      */
     public void rotate() {
         this.processedMat = rotate.process(this.processedMat);
@@ -132,39 +139,56 @@ public class ImageData {
         this.updateMat();
     }
     
+    public void setGrayScale(Boolean grayscale) {
+        this.grayScale.setGrayScale(grayscale);
+    }
+    
     public void setBrigthnessValue(double beta) {
         this.brightnessAndContrast.setBeta(beta);
     }
+    
     public void setContrastValue(double beta) {
         this.brightnessAndContrast.setAlpha(beta);
     }
+    
     public void setSharpnessValue(double strength) {
         sharpness.setStrength(strength);
     }
 
     /**
-     *Applies all the processing methods with their current parameters to the loaded image. Saves the processed Mat object to the processedMat
+     * Applies all the processing methods with their current parameters to the
+     * loaded image. Saves the processed Mat object to the processedMat
      * variable.
-     * 
+     *
      */
     public void process() {
-        this.processedMat = brightnessAndContrast.process(this.transformedMat);
+        this.processedMat = grayScale.process(this.transformedMat);
+        this.processedMat = brightnessAndContrast.process(this.processedMat);
         this.processedMat = sharpness.process(processedMat);
         this.updateMat();
     }
 
     /**
-     *Calculates a histogram from a Mat object stored in the the processedMat variable. Transforms the histogram into an Image object and stores it into the histogram variable.
+     * Calculates a histogram from a Mat object stored in the the processedMat
+     * variable. Transforms the histogram into an Image object and stores it
+     * into the histogram variable.
      */
     public void calculateHistogram() {
-        this.histogram = ImageUtils.matToImage(Histogram.calculate(this.processedMat));
+        if (grayScale.getGrayScale()) {
+            this.histogram = ImageUtils.matToImage(Histogram.calculateGrayScale(this.processedMat));
+        } else {
+            this.histogram = ImageUtils.matToImage(Histogram.calculate(this.processedMat));
+        }
+        
     }
+    
     public void resetAll() {
         this.setBrigthnessValue(0.0);
         this.setContrastValue(1.0);
         this.setSharpnessValue(0.0);
+        this.setGrayScale(false);
         setMat(originalMat);
         updateMat();
     }
-
+    
 }

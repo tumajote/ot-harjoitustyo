@@ -54,14 +54,16 @@ public class LaunchApplication extends Application {
         //Rotate button
         Button rotateButton = new Button("Rotate image");
         rotateButton.setOnAction(btnRotateEventListener);
+        
+        //Rotate button
+        Button greyScalebutton = new Button("Convert to greyscale");
+        greyScalebutton.setOnAction(grayScaleEventListener);
 
         //Reset all button 
         Button resetAllButton = new Button("Reset all");
         resetAllButton.setOnAction(btnResetAllEventListener);
 
-//        //Sharpen button 
-//        Button sharpnessButton = new Button("Sharpen");
-//        sharpnessButton.setOnAction(btnsharpenEventListener);
+
         //Slider and reset button for brightness adjustement 
         Button resetBrigthnessButton = new Button("Reset");
         resetBrigthnessButton.setOnAction(resetBrigthnessButtonEventListener);
@@ -109,6 +111,7 @@ public class LaunchApplication extends Application {
         controls.getChildren().add(widthXHeight);
         controls.getChildren().add(fileButtons);
         controls.getChildren().add(rotateButton);
+        controls.getChildren().add(greyScalebutton);
         controls.getChildren().add(bightnessLabelAndReset);
         controls.getChildren().add(brightnessSlider);
         controls.getChildren().add(contrastLabelAndReset);
@@ -230,6 +233,19 @@ public class LaunchApplication extends Application {
         }
     };
 
+        //Grayscale button event listener
+    EventHandler<ActionEvent> grayScaleEventListener
+            = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent t) {
+            if (!imageData.exists()) {
+                return;
+            }
+            imageData.setGrayScale(true);
+            imageData.process();
+            ImageUpdate.update();
+        }
+    };
     //Brightness slider change listener
     ChangeListener<Number> brightnessSliderListener
             = new ChangeListener<Number>() {
@@ -335,18 +351,4 @@ public class LaunchApplication extends Application {
         }
     };
 
-//    //Sharpen button event listener
-//    EventHandler<ActionEvent> btnsharpenEventListener
-//            = new EventHandler<ActionEvent>() {
-//        @Override
-//        public void handle(ActionEvent t) {
-//            if (!imageData.exists()) {
-//                return;
-//            }
-//            Sharpness sharpness = new Sharpness();
-//            imageData.useProcessingMethod(sharpness);
-//            ImageUpdate.update();
-//
-//        }
-//    };
 }

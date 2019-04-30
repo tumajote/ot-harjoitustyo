@@ -17,16 +17,14 @@ public class Sharpness implements Method {
     }
 
     @Override
-    public Mat process(Mat mat) {
-        Mat newMat = new Mat(mat.rows(), mat.cols(), mat.type());
-        Mat newMat2 = new Mat(mat.rows(), mat.cols(), mat.type());
-        Mat newMat3 = new Mat(mat.rows(), mat.cols(), mat.type());
-        Imgproc.medianBlur(mat, newMat, 1);
-        Imgproc.Laplacian(newMat, newMat2, -1);
-        newMat2.convertTo(newMat2, -1, strength);
-        Core.subtract(mat, newMat2, newMat3);
+    public Mat process(Mat oldMat) {
+        Mat newMat = Mat.zeros(oldMat.size(), oldMat.type());
+        Imgproc.medianBlur(oldMat, newMat, 1);
+        Imgproc.Laplacian(newMat, newMat, -1);
+        newMat.convertTo(newMat, -1, strength);
+        Core.subtract(oldMat, newMat, newMat);
 
-        return newMat3;
+        return newMat;
     }
 
 }

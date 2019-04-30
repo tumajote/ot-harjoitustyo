@@ -2,6 +2,9 @@ package sip.fileio;
 
 import sip.domain.ImageData;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 
@@ -19,14 +22,18 @@ public class FileIo {
      */
     public static String loadImage(ImageData imageData, File file) {
         String path = "not found";
-        try {
+       
             nu.pattern.OpenCV.loadLibrary();
-            Mat mat = Highgui.imread(file.getCanonicalPath());
+            Mat mat;
+        try {
+            mat = Highgui.imread(file.getCanonicalPath());
             imageData.setMat(mat);
             path = file.getCanonicalPath();
-        } catch (Exception ex) {
-            System.out.println("Error");
+        } catch (IOException ex) {
+            Logger.getLogger(FileIo.class.getName()).log(Level.SEVERE, null, ex);
         }
+            
+       
         return path;
     }
 
@@ -38,13 +45,15 @@ public class FileIo {
      */
     public static boolean saveImage(ImageData imageData, File file) {
         boolean success = false;
+                   
         try {
-            nu.pattern.OpenCV.loadLibrary();
+             nu.pattern.OpenCV.loadLibrary();
             success = Highgui.imwrite(file.getCanonicalPath(), imageData.getProcessedMat());
-
-        } catch (Exception ex) {
-            System.out.println("Error");
+        } catch (IOException ex) {
+            Logger.getLogger(FileIo.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        
         return success;
     }
 }

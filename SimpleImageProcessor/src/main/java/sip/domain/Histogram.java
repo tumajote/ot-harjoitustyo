@@ -1,6 +1,7 @@
 package sip.domain;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
@@ -25,7 +26,6 @@ public class Histogram {
      * @return The histogram in a mat format  
      */
     static public Mat calculate(Mat mat) {
-        
         List<Mat> bgrPlanes = new ArrayList<>();
         Core.split(mat, bgrPlanes);
         int histSize = 256;
@@ -56,6 +56,29 @@ public class Histogram {
             Core.line(histImage, new Point(binW * (i - 1), histH - Math.round(rHistData[i - 1])),
                     new Point(binW * (i), histH - Math.round(rHistData[i])), new Scalar(0, 0, 255), 2);
 
+        }
+        return histImage;
+    }
+    
+    static public Mat calculateGrayScale(Mat mat) {
+        
+        LinkedList<Mat> imageList = new LinkedList<>();
+        imageList.add(mat);
+        int histSize = 256;
+        float[] range = {0, 256};
+        MatOfFloat histRange = new MatOfFloat(range);
+        boolean accumulate = false;
+        Mat hist = new Mat();
+        Imgproc.calcHist(imageList, new MatOfInt(0), new Mat(), hist, new MatOfInt(histSize), histRange, accumulate);
+        int histW = 512, histH = 400;
+        int binW = (int) Math.round((double) histW / histSize);
+        Mat histImage = new Mat(histH, histW, CvType.CV_8UC3, new Scalar(0, 0, 0));
+        Core.normalize(hist, hist, 0, histImage.rows(), Core.NORM_MINMAX);
+        float[] bHistData = new float[(int) (hist.total() * hist.channels())];
+        hist.get(0, 0, bHistData);
+        for (int i = 1; i < histSize; i++) {
+            Core.line(histImage, new Point(binW * (i - 1), histH - Math.round(bHistData[i - 1])),
+                    new Point(binW * (i), histH - Math.round(bHistData[i])), new Scalar(255, 0, 0), 2);
         }
         return histImage;
     }
