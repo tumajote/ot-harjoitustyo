@@ -24,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sip.domain.methods.Sharpness;
 
 /**
  *
@@ -37,6 +38,7 @@ public class LaunchApplication extends Application {
     static Label widthXHeight;
     static Slider brightnessSlider;
     static Slider contrastSlider;
+    static Slider sharpnessSlider;
 
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
@@ -56,11 +58,14 @@ public class LaunchApplication extends Application {
         //Rotate button
         Button rotateButton = new Button("Rotate image");
         rotateButton.setOnAction(btnRotateEventListener);
-        
+
         //Reset all button 
         Button resetAllButton = new Button("Reset all");
         resetAllButton.setOnAction(btnResetAllEventListener);
-        
+
+//        //Sharpen button 
+//        Button sharpnessButton = new Button("Sharpen");
+//        sharpnessButton.setOnAction(btnsharpenEventListener);
 
         //Slider and reset button for brightness adjustement 
         Button resetBrigthnessButton = new Button("Reset");
@@ -84,6 +89,17 @@ public class LaunchApplication extends Application {
         Label contrastLabel = new Label("Contrast:");
         HBox contrastLabelAndReset = new HBox(10.0, contrastLabel, resetContrastButton);
 
+        //Slider and reset button for contrast adjustement
+        Button resetSharpnessButton = new Button("Reset");
+        resetSharpnessButton.setOnAction(resetSharpnessButtonEventListener);
+        sharpnessSlider = new Slider(0, 3, 0);
+        sharpnessSlider.setShowTickMarks(true);
+        sharpnessSlider.setShowTickLabels(true);
+        sharpnessSlider.setBlockIncrement(1);
+        sharpnessSlider.valueProperty().addListener(sharpnessSliderListener);
+        Label sharpnessLabel = new Label("Sharpness:");
+        HBox sharpnessLabelAndReset = new HBox(10.0, sharpnessLabel, resetSharpnessButton);
+
         //Imageviewer and histogram
         currentImage = new ImageView();
         histogram = new ImageView();
@@ -102,6 +118,8 @@ public class LaunchApplication extends Application {
         controls.getChildren().add(brightnessSlider);
         controls.getChildren().add(contrastLabelAndReset);
         controls.getChildren().add(contrastSlider);
+        controls.getChildren().add(sharpnessLabelAndReset);
+        controls.getChildren().add(sharpnessSlider);
         controls.getChildren().add(resetAllButton);
 
         //General layout
@@ -285,8 +303,40 @@ public class LaunchApplication extends Application {
 
         }
     };
-    
-    
+//Contrast slider change listener
+    ChangeListener<Number> sharpnessSliderListener
+            = new ChangeListener<Number>() {
+        @Override
+        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            if (!imageData.exists()) {
+                return;
+            }
+            Sharpness sharpness = new Sharpness();
+            //Values
+            
+            
+            sharpness.setStrength((double)newValue);
+            imageData.useProcessingMethod(sharpness);
+            ImageUpdate.update();
+        }
+    };
+
+    //Contrast reset button event listener
+    EventHandler<ActionEvent> resetSharpnessButtonEventListener
+            = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent t) {
+            if (!imageData.exists()) {
+                return;
+            }
+            contrastSlider.setValue(1);
+            BrightnessAndContrast brightness = new BrightnessAndContrast();
+            brightness.setAlphAndBeta(1, brightnessSlider.getValue());
+            imageData.useProcessingMethod(brightness);
+            ImageUpdate.update();
+
+        }
+    };
     //Reset all button event listener
     EventHandler<ActionEvent> btnResetAllEventListener
             = new EventHandler<ActionEvent>() {
@@ -295,9 +345,27 @@ public class LaunchApplication extends Application {
             if (!imageData.exists()) {
                 return;
             }
+            sharpnessSlider.setValue(0);
+            contrastSlider.setValue(1);
+            sharpnessSlider.setValue(0);
             imageData.resetAll();
             ImageUpdate.update();
 
         }
     };
+
+//    //Sharpen button event listener
+//    EventHandler<ActionEvent> btnsharpenEventListener
+//            = new EventHandler<ActionEvent>() {
+//        @Override
+//        public void handle(ActionEvent t) {
+//            if (!imageData.exists()) {
+//                return;
+//            }
+//            Sharpness sharpness = new Sharpness();
+//            imageData.useProcessingMethod(sharpness);
+//            ImageUpdate.update();
+//
+//        }
+//    };
 }
