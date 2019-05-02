@@ -6,7 +6,7 @@ Sovellus tarjoaa yksinkertaisia kuvanmuokkaus ja analysointi työkaluja sekä ma
 
 ## Perusversion tajoama toiminnallisuus
 
-* Pystyy käsittelemään jpg ja png kuvatiedostoja ja tallentamaan ne levylle 
+* Pystyy muokkaamaan jpg ja png kuvatiedostoja ja tallentamaan ne levylle 
 
 * Näyttää kuvan koon pikseleinä sekä valon jakautumisen kuvassa histogrammina
 
@@ -19,15 +19,3 @@ Sovellus tarjoaa yksinkertaisia kuvanmuokkaus ja analysointi työkaluja sekä ma
 * Kuvan tarkkuuden säätäminen
 
 * Värikuvan muuntaminen mustavalkoiseksi
-
-* Värikuvan muuntaminen sepiaksi
-
-
-## Jatkokehitysideoita
-
-* Kasvontunnistus
-
-* Reunantunnistus
-
-
- 
