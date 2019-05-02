@@ -13,8 +13,9 @@ import org.opencv.highgui.Highgui;
 public class ImageUtils {
 
     /**
-     *Transcodes a Mat object into a Image object.
-     * @param mat A Mat object 
+     * Transcodes a Mat object into a Image object.
+     *
+     * @param mat A Mat object
      * @return An Image object
      */
     public static Image matToImage(Mat mat) {

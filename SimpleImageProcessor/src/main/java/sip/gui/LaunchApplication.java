@@ -29,7 +29,7 @@ import javafx.stage.Stage;
  * @author tmjterho
  */
 public class LaunchApplication extends Application {
-    
+
     static ImageView currentImage;
     static ImageView histogram;
     static ImageData imageData;
@@ -37,10 +37,10 @@ public class LaunchApplication extends Application {
     static Slider brightnessSlider;
     static Slider contrastSlider;
     static Slider sharpnessSlider;
-    
+
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
-        
+
         imageData = new ImageData();
 
         // Load and save buttons
@@ -127,14 +127,14 @@ public class LaunchApplication extends Application {
         setup.setCenter(currentImage);
         setup.setPrefWidth(1500);
         setup.setPrefHeight(1500);
-        
+
         Scene scene = new Scene(setup);
         primaryStage.setTitle("SimpleImageProcessor");
         primaryStage.setScene(scene);
         primaryStage.show();
-        
+
     }
-    
+
     public static void main(String[] args) {
         launch(LaunchApplication.class);
     }
@@ -142,7 +142,7 @@ public class LaunchApplication extends Application {
     //Load button event listener
     EventHandler<ActionEvent> btnLoadEventListener
             = new EventHandler<ActionEvent>() {
-        
+
         @Override
         public void handle(ActionEvent t) {
             File file = openFile();
@@ -157,7 +157,7 @@ public class LaunchApplication extends Application {
     //Save button event listener
     EventHandler<ActionEvent> btnSaveEventListener
             = new EventHandler<ActionEvent>() {
-        
+
         @Override
         public void handle(ActionEvent t) {
             if (!imageData.exists()) {
@@ -165,18 +165,18 @@ public class LaunchApplication extends Application {
                 alert.setTitle("No image");
                 alert.setHeaderText(null);
                 alert.setContentText("No image to save!");
-                
+
                 alert.showAndWait();
-                
+
                 return;
             }
-            
+
             File file = saveFile();
-            
+
             if (file == null) {
                 return;
             }
-            
+
             if (!file.getAbsolutePath().endsWith(".png") || !file.getAbsolutePath().endsWith(".jpg")) {
                 Boolean noExtension = true;
                 while (noExtension) {
@@ -192,9 +192,9 @@ public class LaunchApplication extends Application {
                     if (file.getAbsolutePath().endsWith(".png") || file.getAbsolutePath().endsWith(".jpg")) {
                         noExtension = false;
                     }
-                    
+
                 }
-                
+
             }
             Boolean success = FileIo.saveImage(imageData, file);
             if (success) {
@@ -202,17 +202,17 @@ public class LaunchApplication extends Application {
                 alert.setTitle("Save file success");
                 alert.setHeaderText(null);
                 alert.setContentText("File saved!");
-                
+
                 alert.showAndWait();
             } else {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle("Save file failure");
                 alert.setHeaderText("Save failed");
                 alert.setContentText("File not saved!");
-                
+
                 alert.showAndWait();
             }
-            
+
         }
     };
 
@@ -269,7 +269,7 @@ public class LaunchApplication extends Application {
             imageData.setBrigthnessValue(0);
             imageData.process();
             imageUpdate();
-            
+
         }
     };
 
@@ -299,7 +299,7 @@ public class LaunchApplication extends Application {
             imageData.setContrastValue(1);
             imageData.process();
             imageUpdate();
-            
+
         }
     };
 
@@ -329,7 +329,7 @@ public class LaunchApplication extends Application {
             imageData.setSharpnessValue(0.0);
             imageData.process();
             imageUpdate();
-            
+
         }
     };
 
@@ -346,7 +346,7 @@ public class LaunchApplication extends Application {
             sharpnessSlider.setValue(0);
             imageData.resetAll();
             imageUpdate();
-            
+
         }
     };
 
@@ -357,10 +357,10 @@ public class LaunchApplication extends Application {
      */
     static public void imageUpdate() {
         Image image = imageData.getImage();
-        
+
         currentImage.setImage(image);
         histogram.setImage(imageData.getHistogram());
-        
+
         if (image.getHeight() > image.getWidth()) {
             currentImage.setFitHeight(1000);
         } else {
@@ -373,7 +373,7 @@ public class LaunchApplication extends Application {
         currentImage.setSmooth(true);
         currentImage.setCache(true);
         widthXHeight.setText(imageData.getImageMeasures());
-        
+
     }
 
     /**
@@ -383,14 +383,14 @@ public class LaunchApplication extends Application {
      */
     static public File openFile() {
         FileChooser fileChooser = new FileChooser();
-        
+
         FileChooser.ExtensionFilter extFilterjpg
                 = new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
         FileChooser.ExtensionFilter extFilterpng
                 = new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
         fileChooser.getExtensionFilters()
                 .addAll(extFilterjpg, extFilterpng);
-        
+
         return fileChooser.showOpenDialog(null);
     }
 
@@ -401,14 +401,14 @@ public class LaunchApplication extends Application {
      */
     static public File saveFile() {
         FileChooser fileChooser = new FileChooser();
-        
+
         FileChooser.ExtensionFilter extFilterjpg
                 = new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
         FileChooser.ExtensionFilter extFilterpng
                 = new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
         fileChooser.getExtensionFilters()
                 .addAll(extFilterjpg, extFilterpng);
-        
+
         return fileChooser.showSaveDialog(null);
     }
 }

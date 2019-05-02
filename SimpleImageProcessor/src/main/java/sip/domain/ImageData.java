@@ -38,7 +38,7 @@ public class ImageData {
         grayScale = new GrayScale();
         brightnessAndContrast = new BrightnessAndContrast();
         sharpness = new Sharpness();
-        
+
     }
 
     /**
@@ -137,33 +137,37 @@ public class ImageData {
         this.transformedMat = rotate.process(this.transformedMat);
         this.updateMat();
     }
-    
+
     /**
-     *Sets the grayscale conversion variable
+     * Sets the grayscale conversion variable
+     *
      * @param grayscale true if grayscale
      */
     public void setGrayScale(Boolean grayscale) {
         this.grayScale.setGrayScale(grayscale);
     }
-    
+
     /**
-     *Sets the beta value for brightness adjustment
+     * Sets the beta value for brightness adjustment
+     *
      * @param beta is added to the pixel values
      */
     public void setBrigthnessValue(double beta) {
         this.brightnessAndContrast.setBeta(beta);
     }
-    
+
     /**
-     *Sets the alpha value for contrast adjustment
-     * @param alpha  the pixel values are multiplied by alpha
+     * Sets the alpha value for contrast adjustment
+     *
+     * @param alpha the pixel values are multiplied by alpha
      */
     public void setContrastValue(double alpha) {
         this.brightnessAndContrast.setAlpha(alpha);
     }
-    
+
     /**
-     *Sets the strength of the sharpness adjustment
+     * Sets the strength of the sharpness adjustment
+     *
      * @param strength is the times the Laplacian unsharp mask is applied.
      */
     public void setSharpnessValue(double strength) {
@@ -185,7 +189,8 @@ public class ImageData {
 
     /**
      * Calculates a histogram from a Mat object stored in the the processedMat
-     * variable. The histogram is different depending if the picture is grayscale. Transforms the histogram into an Image object and stores it
+     * variable. The histogram is different depending if the picture is
+     * grayscale. Transforms the histogram into an Image object and stores it
      * into the histogram variable.
      */
     public void calculateHistogram() {
@@ -194,11 +199,11 @@ public class ImageData {
         } else {
             this.histogram = ImageUtils.matToImage(Histogram.calculate(this.processedMat));
         }
-        
+
     }
-    
+
     /**
-     *Resets all the adjustments made to the mat
+     * Resets all the adjustments made to the mat
      */
     public void resetAll() {
         this.setBrigthnessValue(0.0);
@@ -208,5 +213,5 @@ public class ImageData {
         setMat(originalMat);
         updateMat();
     }
-    
+
 }

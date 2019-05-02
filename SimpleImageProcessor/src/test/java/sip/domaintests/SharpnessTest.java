@@ -51,7 +51,7 @@ public class SharpnessTest {
     public void adjustSharpness() {
         // Adjust sharpness of the image with library methods
         Mat newMat = Mat.zeros(mockMat.size(), mockMat.type());
-         Imgproc.medianBlur(mockMat, newMat, 1);
+        Imgproc.medianBlur(mockMat, newMat, 1);
         Imgproc.Laplacian(newMat, newMat, -1);
         newMat.convertTo(newMat, -1, 2);
         Core.subtract(mockMat, newMat, newMat);

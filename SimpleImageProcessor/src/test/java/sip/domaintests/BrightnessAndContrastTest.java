@@ -43,10 +43,9 @@ public class BrightnessAndContrastTest {
     //
     @Test
     public void adjustBrightnessAndContrast() {
-          // Adjust brightness and contrast of the image with library methods
+        // Adjust brightness and contrast of the image with library methods
         Mat newMat = Mat.zeros(mockMat.size(), mockMat.type());
         mockMat.convertTo(newMat, -1, 1.5, 20);
-        
 
         // Process image with method class
         BrightnessAndContrast bc = new BrightnessAndContrast();

@@ -30,14 +30,13 @@ public class BrightnessAndContrast implements Method {
     }
 
     /**
-     *Sets the beta value for brightness adjustment
+     * Sets the beta value for brightness adjustment
+     *
      * @param beta is added to the pixel values
      */
     public void setBeta(Double beta) {
         this.beta = beta;
     }
-
-   
 
     /**
      * Applies the contrast and brightness adjustment

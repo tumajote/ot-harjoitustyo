@@ -21,9 +21,10 @@ public class Histogram {
     /**
      *
      * Calculates an histogram for images with 3 channels
+     *
      * @param mat the source image in the form of a Mat object
-     * 
-     * @return The histogram in a mat format  
+     *
+     * @return The histogram in a mat format
      */
     static public Mat calculate(Mat mat) {
         List<Mat> bgrPlanes = new ArrayList<>();
@@ -59,16 +60,17 @@ public class Histogram {
         }
         return histImage;
     }
-    
+
     /**
      *
      * Calculates an histogram for images with 3 channels
+     *
      * @param mat the source image in the form of a Mat object
-     * 
-     * @return The histogram in a mat format  
+     *
+     * @return The histogram in a mat format
      */
     static public Mat calculateGrayScale(Mat mat) {
-        
+
         LinkedList<Mat> imageList = new LinkedList<>();
         imageList.add(mat);
         int histSize = 256;
