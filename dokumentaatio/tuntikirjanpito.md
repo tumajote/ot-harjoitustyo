@@ -16,4 +16,5 @@
 | 26.4  | 6    | Uusia ominaisuuksia, testejä, kuvan tallentamisen säätöä, käyttöohje, arkkitehtuuri ja javadoc|
 | 29.4  | 2    | Reset all ja terävyyden säätö|
 | 30.4  | 6    | Terävyyden säätö jatkuu ja muuta pientä korjailua|
-|       | 68   | Yhteensä|
+| 2.5   | 6    | Loppusiivousta testejä ja dokumentaatiota|
+|       | 74   | Yhteensä|
