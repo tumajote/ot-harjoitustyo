@@ -27,7 +27,7 @@ Kuvatiedoston lataamisesta ja tallentamisesta levylle huolehtii fileIo-luokka. T
 
 ## Päätoiminnallisuudet
 
-Kuvataan seuraavaksi sovelluksen toimintalogiikka päätoiminnallisuuden osalta sekvenssikaaviona.
+Kuvataan seuraavaksi sovelluksen toimintalogiikka parin päätoiminnallisuuden osalta sekvenssikaaviona. Kuvanmuokkaus operaatiot noudattavat pitkälti samaa kaavaa kuin kontrastin muokkaaminen.
 
 #### kuvan lataaminen sovellukseen
 Load image nappia painaessa avautuu valintaikkuna, josta voi valita kuvatiedoston levyltä. Nappia painessa siirtyy sovelluksen kontrolli seuraavasti
@@ -36,4 +36,10 @@ Load image nappia painaessa avautuu valintaikkuna, josta voi valita kuvatiedosto
 
 Käyttäjän painaessa load image nappia tapahtumakäsittelijä kutsuu esiin Filechooser-ikkunan, joka palauttaa käyttäjän valitseman tiedoston. Graafinen käyttöliittymä kutsuu FileIO-luokan staattista metodia, joka muuntaa annetun tiedoston Mat-matriisiksi ja toimittaa sen ImageData luokalle. Imagedata luokka muuntaa matriisiin JavaFx:n näytettäväksi sopivaksi Image-olioksi, luo kuvasta histogrammin ja mitat sekä palauttaa ne graafisen käyttöliittymään käyttäjän nähtäviksi.
 
+#### kuvan kontrastin muokkaaminen
+Käyttäjän asettaessa contrast-liukurin arvoksi 2 siirtyy sovelluksen kontrolli seuraavasti. 
+
+![Processing image toiminnallisuus](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/Processing.png)
+
+Graafinen käyttöliittymä antaa arvon 2 ImageData-oliolle ja Imagedata kutsuu BrightnessAndContrast olion metodia, joka asetttaa kontrastia säätelevän parametrin (alpha) kakkoseksi. Tämän jälkeen graafinen käyttöliittymä kutsuu ImageData_olion process()-metodia, joka käsittelee kuvan kaikilla metodeilla ja niillä annetuilla arvoilla. Tämä tehdään siksi, että eri metodit muokkaavat samoja pikseliarvoja joten niiden yhdistelmä täytyy aina laskea alkuperäisille pikseleille. Toisin sanoen muutokset eivät ole kumulatiivisia vaan ne joudutaan aina laskemaan uudelleen. Tämän jälkeen ImageData-olio päivittää kuvan ja sen histogrammin ja palauttaa ne graafiselle käyttöjärjestelmälle näytettäviksi.
 
