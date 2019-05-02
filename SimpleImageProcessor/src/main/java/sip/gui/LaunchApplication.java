@@ -16,10 +16,12 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -54,7 +56,7 @@ public class LaunchApplication extends Application {
         //Rotate button
         Button rotateButton = new Button("Rotate image");
         rotateButton.setOnAction(btnRotateEventListener);
-        
+
         //Rotate button
         Button greyScalebutton = new Button("Convert to greyscale");
         greyScalebutton.setOnAction(grayScaleEventListener);
@@ -62,7 +64,6 @@ public class LaunchApplication extends Application {
         //Reset all button 
         Button resetAllButton = new Button("Reset all");
         resetAllButton.setOnAction(btnResetAllEventListener);
-
 
         //Slider and reset button for brightness adjustement 
         Button resetBrigthnessButton = new Button("Reset");
@@ -86,7 +87,7 @@ public class LaunchApplication extends Application {
         Label contrastLabel = new Label("Contrast:");
         HBox contrastLabelAndReset = new HBox(10.0, contrastLabel, resetContrastButton);
 
-        //Slider and reset button for contrast adjustement
+        //Slider and reset button for sharpness adjustement
         Button resetSharpnessButton = new Button("Reset");
         resetSharpnessButton.setOnAction(resetSharpnessButtonEventListener);
         sharpnessSlider = new Slider(0, 3, 0);
@@ -133,11 +134,7 @@ public class LaunchApplication extends Application {
         primaryStage.show();
         
     }
-
-    /**
-     *
-     * @param args
-     */
+    
     public static void main(String[] args) {
         launch(LaunchApplication.class);
     }
@@ -148,12 +145,12 @@ public class LaunchApplication extends Application {
         
         @Override
         public void handle(ActionEvent t) {
-            File file = FileChooserWindow.openFile();
+            File file = openFile();
             if (file == null) {
                 return;
             }
             FileIo.loadImage(imageData, file);
-            ImageUpdate.update();
+            imageUpdate();
         }
     };
 
@@ -174,7 +171,7 @@ public class LaunchApplication extends Application {
                 return;
             }
             
-            File file = FileChooserWindow.saveFile();
+            File file = saveFile();
             
             if (file == null) {
                 return;
@@ -188,7 +185,7 @@ public class LaunchApplication extends Application {
                     alert.setHeaderText("Choose file type!");
                     alert.setContentText("Please add extension .jpg or .png to the file name");
                     alert.showAndWait();
-                    file = FileChooserWindow.saveFile();
+                    file = saveFile();
                     if (file == null) {
                         return;
                     }
@@ -229,11 +226,11 @@ public class LaunchApplication extends Application {
             }
             imageData.rotate();
             imageData.process();
-            ImageUpdate.update();
+            imageUpdate();
         }
     };
 
-        //Grayscale button event listener
+    //Grayscale button event listener
     EventHandler<ActionEvent> grayScaleEventListener
             = new EventHandler<ActionEvent>() {
         @Override
@@ -243,7 +240,7 @@ public class LaunchApplication extends Application {
             }
             imageData.setGrayScale(true);
             imageData.process();
-            ImageUpdate.update();
+            imageUpdate();
         }
     };
     //Brightness slider change listener
@@ -256,7 +253,7 @@ public class LaunchApplication extends Application {
             }
             imageData.setBrigthnessValue((double) newValue);
             imageData.process();
-            ImageUpdate.update();
+            imageUpdate();
         }
     };
 
@@ -271,7 +268,7 @@ public class LaunchApplication extends Application {
             brightnessSlider.setValue(0);
             imageData.setBrigthnessValue(0);
             imageData.process();
-            ImageUpdate.update();
+            imageUpdate();
             
         }
     };
@@ -286,7 +283,7 @@ public class LaunchApplication extends Application {
             }
             imageData.setContrastValue((double) newValue);
             imageData.process();
-            ImageUpdate.update();
+            imageUpdate();
         }
     };
 
@@ -301,11 +298,12 @@ public class LaunchApplication extends Application {
             contrastSlider.setValue(1);
             imageData.setContrastValue(1);
             imageData.process();
-            ImageUpdate.update();
+            imageUpdate();
             
         }
     };
-//Contrast slider change listener
+
+    //Contrast slider change listener
     ChangeListener<Number> sharpnessSliderListener
             = new ChangeListener<Number>() {
         @Override
@@ -315,7 +313,7 @@ public class LaunchApplication extends Application {
             }
             imageData.setSharpnessValue((double) newValue);
             imageData.process();
-            ImageUpdate.update();
+            imageUpdate();
         }
     };
 
@@ -330,10 +328,11 @@ public class LaunchApplication extends Application {
             sharpnessSlider.setValue(0.0);
             imageData.setSharpnessValue(0.0);
             imageData.process();
-            ImageUpdate.update();
+            imageUpdate();
             
         }
     };
+
     //Reset all button event listener
     EventHandler<ActionEvent> btnResetAllEventListener
             = new EventHandler<ActionEvent>() {
@@ -346,9 +345,70 @@ public class LaunchApplication extends Application {
             contrastSlider.setValue(1);
             sharpnessSlider.setValue(0);
             imageData.resetAll();
-            ImageUpdate.update();
+            imageUpdate();
             
         }
     };
 
+    /**
+     * Updates the image, histogram and measures.
+     *
+     *
+     */
+    static public void imageUpdate() {
+        Image image = imageData.getImage();
+        
+        currentImage.setImage(image);
+        histogram.setImage(imageData.getHistogram());
+        
+        if (image.getHeight() > image.getWidth()) {
+            currentImage.setFitHeight(1000);
+        } else {
+            currentImage.setFitWidth(1000);
+        }
+        histogram.setPreserveRatio(true);
+        histogram.setSmooth(true);
+        histogram.setCache(true);
+        currentImage.setPreserveRatio(true);
+        currentImage.setSmooth(true);
+        currentImage.setCache(true);
+        widthXHeight.setText(imageData.getImageMeasures());
+        
+    }
+
+    /**
+     * Opens up a choose file dialogue
+     *
+     * @return a file chosen to be opened
+     */
+    static public File openFile() {
+        FileChooser fileChooser = new FileChooser();
+        
+        FileChooser.ExtensionFilter extFilterjpg
+                = new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
+        FileChooser.ExtensionFilter extFilterpng
+                = new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
+        fileChooser.getExtensionFilters()
+                .addAll(extFilterjpg, extFilterpng);
+        
+        return fileChooser.showOpenDialog(null);
+    }
+
+    /**
+     * Opens up a choose file dialogue
+     *
+     * @return a file chosen to be saved
+     */
+    static public File saveFile() {
+        FileChooser fileChooser = new FileChooser();
+        
+        FileChooser.ExtensionFilter extFilterjpg
+                = new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
+        FileChooser.ExtensionFilter extFilterpng
+                = new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
+        fileChooser.getExtensionFilters()
+                .addAll(extFilterjpg, extFilterpng);
+        
+        return fileChooser.showSaveDialog(null);
+    }
 }

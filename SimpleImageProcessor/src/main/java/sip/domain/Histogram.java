@@ -20,7 +20,7 @@ public class Histogram {
 
     /**
      *
-     * Calculates an histogram 
+     * Calculates an histogram for images with 3 channels
      * @param mat the source image in the form of a Mat object
      * 
      * @return The histogram in a mat format  
@@ -60,6 +60,13 @@ public class Histogram {
         return histImage;
     }
     
+    /**
+     *
+     * Calculates an histogram for images with 3 channels
+     * @param mat the source image in the form of a Mat object
+     * 
+     * @return The histogram in a mat format  
+     */
     static public Mat calculateGrayScale(Mat mat) {
         
         LinkedList<Mat> imageList = new LinkedList<>();

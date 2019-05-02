@@ -4,14 +4,26 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
+/**
+ *
+ * @author tmjterho
+ */
 public class Sharpness implements Method {
 
     Double strength;
 
+    /**
+     *
+     */
     public Sharpness() {
         this.strength = 0.0;
     }
 
+    /**
+     * Sets the strength of the sharpness adjustment
+     *
+     * @param strength is the times the Laplacian unsharp mask is applied.
+     */
     public void setStrength(Double strength) {
         this.strength = strength;
     }

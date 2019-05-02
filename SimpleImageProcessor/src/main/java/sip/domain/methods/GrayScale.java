@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sip.domain.methods;
 
 import org.opencv.core.Core;
@@ -17,18 +13,36 @@ public class GrayScale implements Method {
 
     Boolean grayScale;
 
+    /**
+     *
+     */
     public GrayScale() {
         grayScale = false;
     }
-    public void setGrayScale(Boolean grayScale){
-        this.grayScale = grayScale;
+
+    /**
+     *Sets the grayscale conversion variable
+     * @param grayscale true if grayscale
+     */
+    public void setGrayScale(Boolean grayscale){
+        this.grayScale = grayscale;
     }
 
+    /**
+     *Returns the grayscale conversion variable 
+     * @return true if grayscale
+     */
     public Boolean getGrayScale() {
         return grayScale;
     }
     
 
+    /**
+     * Applies the grayscale conversion
+     *
+     * @param oldMat the Mat object to convert
+     * @return the converted Mat object
+     */
     @Override
     public Mat process(Mat oldMat) {
         if (grayScale) {

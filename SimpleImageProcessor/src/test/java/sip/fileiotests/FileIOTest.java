@@ -26,7 +26,7 @@ public class FileIOTest {
     @Before
     public void setUp() throws IOException {
     
-        file = new File("test.JPG");
+        file = new File("test.jpg");
         path = file.getCanonicalPath();
         
        
@@ -39,6 +39,12 @@ public class FileIOTest {
     @Test
     public void pathIsCorrect(){     
         assertEquals(path, FileIo.loadImage(imageData, file));
+    }
+    
+    @Test
+    public void saveFunctions(){     
+        FileIo.loadImage(imageData, file);
+        assertTrue(FileIo.saveImage(imageData, file));
     }
     
 }

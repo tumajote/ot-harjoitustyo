@@ -21,15 +21,18 @@ public class BrightnessAndContrast implements Method {
     }
 
     /**
-     * Sets the parameters for the adjustment
+     * Sets the alpha value for contrast adjustment
      *
-     * @param alpha The parameter for the brightness adjustment
-     * @param beta The parameter for the contrast adjustment
+     * @param alpha the pixel values are multiplied by alpha
      */
     public void setAlpha(Double alpha) {
         this.alpha = alpha;
     }
 
+    /**
+     *Sets the beta value for brightness adjustment
+     * @param beta is added to the pixel values
+     */
     public void setBeta(Double beta) {
         this.beta = beta;
     }

@@ -1,6 +1,5 @@
 package sip.domain;
 
-import sip.domain.methods.Method;
 import javafx.scene.image.Image;
 import org.opencv.core.Mat;
 import sip.domain.methods.BrightnessAndContrast;
@@ -14,7 +13,7 @@ import sip.domain.methods.Sharpness;
  */
 public class ImageData {
 
-    //Image data
+    //Data
     Image image;
     String imageMeasures;
     Mat originalMat;
@@ -139,18 +138,34 @@ public class ImageData {
         this.updateMat();
     }
     
+    /**
+     *Sets the grayscale conversion variable
+     * @param grayscale true if grayscale
+     */
     public void setGrayScale(Boolean grayscale) {
         this.grayScale.setGrayScale(grayscale);
     }
     
+    /**
+     *Sets the beta value for brightness adjustment
+     * @param beta is added to the pixel values
+     */
     public void setBrigthnessValue(double beta) {
         this.brightnessAndContrast.setBeta(beta);
     }
     
-    public void setContrastValue(double beta) {
-        this.brightnessAndContrast.setAlpha(beta);
+    /**
+     *Sets the alpha value for contrast adjustment
+     * @param alpha  the pixel values are multiplied by alpha
+     */
+    public void setContrastValue(double alpha) {
+        this.brightnessAndContrast.setAlpha(alpha);
     }
     
+    /**
+     *Sets the strength of the sharpness adjustment
+     * @param strength is the times the Laplacian unsharp mask is applied.
+     */
     public void setSharpnessValue(double strength) {
         sharpness.setStrength(strength);
     }
@@ -170,7 +185,7 @@ public class ImageData {
 
     /**
      * Calculates a histogram from a Mat object stored in the the processedMat
-     * variable. Transforms the histogram into an Image object and stores it
+     * variable. The histogram is different depending if the picture is grayscale. Transforms the histogram into an Image object and stores it
      * into the histogram variable.
      */
     public void calculateHistogram() {
@@ -182,6 +197,9 @@ public class ImageData {
         
     }
     
+    /**
+     *Resets all the adjustments made to the mat
+     */
     public void resetAll() {
         this.setBrigthnessValue(0.0);
         this.setContrastValue(1.0);

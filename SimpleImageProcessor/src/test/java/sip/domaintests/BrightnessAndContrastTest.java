@@ -3,10 +3,7 @@ package sip.domaintests;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.opencv.core.Core;
@@ -14,7 +11,6 @@ import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 import sip.domain.ImageData;
 import sip.domain.methods.BrightnessAndContrast;
-import sip.domain.methods.Rotate;
 
 /**
  *
@@ -34,13 +30,11 @@ public class BrightnessAndContrastTest {
         imageData = new ImageData();
 
         nu.pattern.OpenCV.loadLibrary();
-        File file = new File("test.JPG");
-        System.out.println(file.getCanonicalPath());
+        File file = new File("test.jpg");
         this.mat = Highgui.imread(file.getCanonicalPath());
         imageData.setMat(mat);
 
-        File file2 = new File("test.JPG");
-        System.out.println(file2.getCanonicalPath());
+        File file2 = new File("test.jpg");
         this.mockMat = Highgui.imread(file2.getCanonicalPath());
     }
 
@@ -56,8 +50,9 @@ public class BrightnessAndContrastTest {
 
         // Process image with method class
         BrightnessAndContrast bc = new BrightnessAndContrast();
-        bc.setAlphAndBeta(1.5, 20);
-        imageData.useProcessingMethod(bc);
+        imageData.setBrigthnessValue(20);
+        imageData.setContrastValue(1.5);
+        imageData.process();
 
         // Compare the matrixes
         Mat result = new Mat();
