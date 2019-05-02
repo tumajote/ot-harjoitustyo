@@ -27,22 +27,30 @@ public class Histogram {
      * @return The histogram in a mat format
      */
     static public Mat calculate(Mat mat) {
+
+        // Create planes for different colour channels
         List<Mat> bgrPlanes = new ArrayList<>();
+        // Split channels to separate matrixes
         Core.split(mat, bgrPlanes);
+        //Create parameters for the histogram
         int histSize = 256;
         float[] range = {0, 256};
         MatOfFloat histRange = new MatOfFloat(range);
         boolean accumulate = false;
+        //Calculate histograms for the channels
         Mat bHist = new Mat(), gHist = new Mat(), rHist = new Mat();
         Imgproc.calcHist(bgrPlanes, new MatOfInt(0), new Mat(), bHist, new MatOfInt(histSize), histRange, accumulate);
         Imgproc.calcHist(bgrPlanes, new MatOfInt(1), new Mat(), gHist, new MatOfInt(histSize), histRange, accumulate);
         Imgproc.calcHist(bgrPlanes, new MatOfInt(2), new Mat(), rHist, new MatOfInt(histSize), histRange, accumulate);
+        //Create parameters for the histogram image
         int histW = 512, histH = 400;
         int binW = (int) Math.round((double) histW / histSize);
         Mat histImage = new Mat(histH, histW, CvType.CV_8UC3, new Scalar(0, 0, 0));
+        //Normalize histogram values
         Core.normalize(bHist, bHist, 0, histImage.rows(), Core.NORM_MINMAX);
         Core.normalize(gHist, gHist, 0, histImage.rows(), Core.NORM_MINMAX);
         Core.normalize(rHist, rHist, 0, histImage.rows(), Core.NORM_MINMAX);
+        //Draw the histogram
         float[] bHistData = new float[(int) (bHist.total() * bHist.channels())];
         bHist.get(0, 0, bHistData);
         float[] gHistData = new float[(int) (gHist.total() * gHist.channels())];
@@ -73,16 +81,21 @@ public class Histogram {
 
         LinkedList<Mat> imageList = new LinkedList<>();
         imageList.add(mat);
+        //Create parameters for the histogram
         int histSize = 256;
         float[] range = {0, 256};
         MatOfFloat histRange = new MatOfFloat(range);
         boolean accumulate = false;
         Mat hist = new Mat();
+        //Calculate histogram
         Imgproc.calcHist(imageList, new MatOfInt(0), new Mat(), hist, new MatOfInt(histSize), histRange, accumulate);
+        //Create parameters for the histogram image
         int histW = 512, histH = 400;
         int binW = (int) Math.round((double) histW / histSize);
         Mat histImage = new Mat(histH, histW, CvType.CV_8UC3, new Scalar(0, 0, 0));
+        //Normalize histogram values
         Core.normalize(hist, hist, 0, histImage.rows(), Core.NORM_MINMAX);
+        //Draw the histogram
         float[] bHistData = new float[(int) (hist.total() * hist.channels())];
         hist.get(0, 0, bHistData);
         for (int i = 1; i < histSize; i++) {
