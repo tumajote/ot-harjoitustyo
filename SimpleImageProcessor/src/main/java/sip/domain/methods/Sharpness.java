@@ -10,7 +10,7 @@ import org.opencv.imgproc.Imgproc;
  */
 public class Sharpness implements Method {
 
-    Double strength;
+    private Double strength;
 
     /**
      *

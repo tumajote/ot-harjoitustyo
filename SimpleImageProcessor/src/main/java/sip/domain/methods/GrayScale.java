@@ -11,7 +11,7 @@ import org.opencv.imgproc.Imgproc;
  */
 public class GrayScale implements Method {
 
-    Boolean grayScale;
+    private Boolean grayScale;
 
     /**
      *

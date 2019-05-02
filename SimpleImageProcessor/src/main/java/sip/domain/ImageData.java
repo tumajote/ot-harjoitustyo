@@ -14,19 +14,19 @@ import sip.domain.methods.Sharpness;
 public class ImageData {
 
     //Data
-    Image image;
-    String imageMeasures;
-    Mat originalMat;
-    Mat transformedMat;
-    Mat processedMat;
-    Image histogram;
-    Boolean imageExists;
+   private Image image;
+   private String imageMeasures;
+   private Mat originalMat;
+   private Mat transformedMat;
+   private Mat processedMat;
+   private Image histogram;
+   private Boolean imageExists;
 
     //Methods
-    Rotate rotate;
-    GrayScale grayScale;
-    BrightnessAndContrast brightnessAndContrast;
-    Sharpness sharpness;
+   final Rotate rotate;
+   final GrayScale grayScale;
+   final BrightnessAndContrast brightnessAndContrast;
+   final Sharpness sharpness;
 
     /**
      *
@@ -57,7 +57,7 @@ public class ImageData {
     /**
      * Updates the processed image and the histogram
      */
-    public void updateMat() {
+    private void updateMat() {
 //        if (!adjustedMat.empty()) {
 //            history.add(adjustedMat);
 //        }

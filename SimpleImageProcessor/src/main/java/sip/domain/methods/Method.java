@@ -15,5 +15,5 @@ public interface Method {
      * @param mat a Mat object to be processed or transformed
      * @return transformed or processed Mat object
      */
-    Mat process(Mat mat);
+   Mat process(Mat mat);
 }
