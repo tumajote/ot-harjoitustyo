@@ -24,7 +24,7 @@ public class GrayScale implements Method {
      *Sets the grayscale conversion variable
      * @param grayscale true if grayscale
      */
-    public void setGrayScale(Boolean grayscale){
+    public void setGrayScale(Boolean grayscale) {
         this.grayScale = grayscale;
     }
 
