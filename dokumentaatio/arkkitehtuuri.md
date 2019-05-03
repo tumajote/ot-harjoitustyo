@@ -29,7 +29,7 @@ Kuvatiedoston lataamisesta ja tallentamisesta levylle huolehtii fileIo-luokka. T
 
 ## Päätoiminnallisuudet
 
-Kuvataan seuraavaksi sovelluksen toimintalogiikka parin päätoiminnallisuuden osalta sekvenssikaaviona. Kaikki kuvanmuokkaus operaatiot noudattavat pitkälti samaa kaavaa kuin alla esitelty kontrastin muokkaaminen.
+Kuvataan seuraavaksi sovelluksen toimintalogiikka parin päätoiminnallisuuden osalta sekvenssikaaviona. 
 
 #### kuvan lataaminen sovellukseen
 Load image nappia painaessa avautuu valintaikkuna, josta voi valita kuvatiedoston levyltä. Nappia painessa siirtyy sovelluksen kontrolli seuraavasti
@@ -45,3 +45,6 @@ Käyttäjän asettaessa contrast-liukurin arvoksi 2 siirtyy sovelluksen kontroll
 
 Graafinen käyttöliittymä antaa arvon 2 ImageData-oliolle ja Imagedata kutsuu BrightnessAndContrast olion metodia, joka asetttaa kontrastia säätelevän parametrin (alpha) kakkoseksi. Tämän jälkeen graafinen käyttöliittymä kutsuu ImageData_olion process()-metodia, joka käsittelee kuvan kaikilla metodeilla ja niillä annetuilla arvoilla. Tämä tehdään siksi, että eri metodit muokkaavat samoja pikseliarvoja joten niiden yhdistelmä täytyy aina laskea alkuperäisille pikseleille. Toisin sanoen muutokset eivät ole kumulatiivisia vaan ne joudutaan aina laskemaan uudelleen. Tämän jälkeen ImageData-olio päivittää kuvan ja sen histogrammin ja palauttaa ne graafiselle käyttöjärjestelmälle näytettäviksi.
 
+#### muut kuvanmuokkaus metodit
+
+Käytännössä kaikki kuvanmuokkausmetodit noudattavat samanlaista kaavaa kuin kontrastin säätö.
