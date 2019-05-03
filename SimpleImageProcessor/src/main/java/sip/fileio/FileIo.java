@@ -21,7 +21,7 @@ public class FileIo {
      * @param imageData the current imageData object
      * @param file the image file to be loaded
      * @return the path to the file
-     * @throws java.io.IOException to gui
+     * @throws java.io.IOException to the LaunchAplication classes loadButtonEventListener
      */
     public static String loadImage(ImageData imageData, File file) throws IOException {
         String path = "not found";
@@ -42,7 +42,7 @@ public class FileIo {
      * @param imageData the current imageData object
      * @param file the save file location
      * @return the path to the saved file
-     * @throws java.io.IOException
+     * @throws java.io.IOException to the LaunchAplication classes saveButtonEventListener
      */
     public static boolean saveImage(ImageData imageData, File file) throws IOException {
         boolean success = false;

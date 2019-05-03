@@ -48,9 +48,9 @@ public class LaunchApplication extends Application {
 
         // Load and save buttons
         Button loadButton = new Button("Load image");
-        loadButton.setOnAction(btnLoadEventListener);
+        loadButton.setOnAction(loadButtonEventListener);
         Button saveButton = new Button("Save image");
-        saveButton.setOnAction(btnSaveEventListener);
+        saveButton.setOnAction(saveButtonEventListener);
         HBox fileButtons = new HBox(5.0, loadButton, saveButton);
 
         //Width and height label
@@ -58,7 +58,7 @@ public class LaunchApplication extends Application {
 
         //Rotate button
         Button rotateButton = new Button("Rotate image");
-        rotateButton.setOnAction(btnRotateEventListener);
+        rotateButton.setOnAction(rotateButtonEventListener);
 
         //Convert to grayscale and reset button
         Button grayScaleButton = new Button("Convert to grayscale");
@@ -69,7 +69,7 @@ public class LaunchApplication extends Application {
 
         //Reset all button 
         Button resetAllButton = new Button("Reset all");
-        resetAllButton.setOnAction(btnResetAllEventListener);
+        resetAllButton.setOnAction(resetAllButtonEventListener);
 
         //Slider and reset button for brightness adjustement 
         Button resetBrigthnessButton = new Button("Reset");
@@ -146,7 +146,7 @@ public class LaunchApplication extends Application {
     }
 
     //Load button event listener
-    EventHandler<ActionEvent> btnLoadEventListener
+    EventHandler<ActionEvent> loadButtonEventListener
             = new EventHandler<ActionEvent>() {
 
         @Override
@@ -181,7 +181,7 @@ public class LaunchApplication extends Application {
     };
 
     //Save button event listener
-    EventHandler<ActionEvent> btnSaveEventListener
+    EventHandler<ActionEvent> saveButtonEventListener
             = new EventHandler<ActionEvent>() {
 
         @Override
@@ -247,7 +247,7 @@ public class LaunchApplication extends Application {
     };
 
     //Rotate button event listener
-    EventHandler<ActionEvent> btnRotateEventListener
+    EventHandler<ActionEvent> rotateButtonEventListener
             = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent t) {
@@ -379,7 +379,7 @@ public class LaunchApplication extends Application {
     };
 
     //Reset all button event listener
-    EventHandler<ActionEvent> btnResetAllEventListener
+    EventHandler<ActionEvent> resetAllButtonEventListener
             = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent t) {

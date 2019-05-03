@@ -104,7 +104,7 @@ public class ImageData {
 
     /**
      *
-     * @return
+     * @return the histogram as an image object
      */
     public Image getHistogram() {
         return histogram;
