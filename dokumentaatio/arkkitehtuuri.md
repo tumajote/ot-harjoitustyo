@@ -7,7 +7,7 @@ Ohjelman rakenne noudattaa kerrosarkkitehtuuria. Koodin pakkausrakenne on seuraa
 Pakkaus _sip.gui_ sisältää JavaFX käyttöliittymän _sip.domain_ sovelluslogiikan, _sip.domain.methods_ kuvanmuokkaukseen käytetyt metodit ja _sip.fileIo_ levyltä lataamiseen ja sinne tallentamiseen liittyvän koodin.
 
 ## Käyttöliittymä 
-Käyttöliittymä on toteutettu kokonaan luokassa [sip.gui.LaunchApplication] (https://github.com/tumajote/ot-harjoitustyo/blob/master/SimpleImageProcessor/src/main/java/sip/gui/LaunchApplication.java) ja se koostuu pääosin yhdestä näkymästä, joka sisältää kaikki sovelluksen toimintaan liittyvät kontrollit. Tiedostojen avaamisen ja tallentamisen yhteydessä avautuvat omat tiedoston valitsemiseen liittyvät näkymät. 
+Käyttöliittymä on toteutettu kokonaan luokassa [sip.gui.LaunchApplication](https://github.com/tumajote/ot-harjoitustyo/blob/master/SimpleImageProcessor/src/main/java/sip/gui/LaunchApplication.java) ja se koostuu pääosin yhdestä näkymästä, joka sisältää kaikki sovelluksen toimintaan liittyvät kontrollit. Tiedostojen avaamisen ja tallentamisen yhteydessä avautuvat omat tiedoston valitsemiseen liittyvät näkymät. 
 
 Käyttöliittymä perustuu yhdelle javaFx:n Scene-oliolle, jonka päälle on rakennettu layout käyttäen Borderpane-oliota. Borderpanen keskelle on sijoitettu ImageView-olio, johon käsiteltävä kuva tulee näkyviin. Kuvan histogrammi, mitat sekä kuvanmuokkaukseen käytetyt kontrollit tuleva Bordepanen vasempaan laitaan aseteltuna VBox-olioon.  
 
