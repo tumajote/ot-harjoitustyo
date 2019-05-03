@@ -1,13 +1,15 @@
 # Ohjelmistotekniikka
 
 ## Dokumentaatio
-[Vaatimusmäärittely](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
+[Käyttöohje](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
 
-[Työaikakirjanpito](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
+[Vaatimusmäärittely](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
 [Arkkitehtuuri](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
-[Käyttöohje](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
+[Testausdokumentti](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/testausdokumentti.md)
+
+[Työaikakirjanpito](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
 
 
 ## Releaset
