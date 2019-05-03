@@ -22,7 +22,7 @@ Sovelluksen järjestelmätestaus on suoritettu manuaalisesti.
 
 ### Asennus ja konfigurointi
 
-Sovellus on haettu ja sitä on testattu [käyttöohjeen](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)mukaisella tavalla muun muassa käsittelemällä erilaisia kuvia lukuisilla eri tavoilla ja tallentamalla niitä erilaisiin osoitteisiin Linux-ympäristössä.
+Sovellus on haettu ja sitä on testattu [käyttöohjeen](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md) mukaisella tavalla muun muassa käsittelemällä erilaisia kuvia lukuisilla eri tavoilla ja tallentamalla niitä erilaisiin osoitteisiin Linux-ympäristössä.
 
 ### Toiminnallisuudet
 
