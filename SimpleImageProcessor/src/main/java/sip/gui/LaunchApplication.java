@@ -4,6 +4,8 @@ import sip.fileio.FileIo;
 import sip.domain.ImageData;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Optional;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -14,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -57,9 +60,12 @@ public class LaunchApplication extends Application {
         Button rotateButton = new Button("Rotate image");
         rotateButton.setOnAction(btnRotateEventListener);
 
-        //Rotate button
-        Button greyScalebutton = new Button("Convert to greyscale");
-        greyScalebutton.setOnAction(grayScaleEventListener);
+        //Convert to grayscale and reset button
+        Button grayScaleButton = new Button("Convert to grayscale");
+        grayScaleButton.setOnAction(grayScaleEventListener);
+        Button resetGrayScaleButton = new Button("Reset");
+        resetGrayScaleButton.setOnAction(resetGrayScaleButtonEventListener);
+        HBox grayScaleButtons = new HBox(10.0, grayScaleButton, resetGrayScaleButton);
 
         //Reset all button 
         Button resetAllButton = new Button("Reset all");
@@ -112,7 +118,7 @@ public class LaunchApplication extends Application {
         controls.getChildren().add(widthXHeight);
         controls.getChildren().add(fileButtons);
         controls.getChildren().add(rotateButton);
-        controls.getChildren().add(greyScalebutton);
+        controls.getChildren().add(grayScaleButtons);
         controls.getChildren().add(bightnessLabelAndReset);
         controls.getChildren().add(brightnessSlider);
         controls.getChildren().add(contrastLabelAndReset);
@@ -145,11 +151,31 @@ public class LaunchApplication extends Application {
 
         @Override
         public void handle(ActionEvent t) {
+            // Checks if there is already image open and asks is it ok to lose previous work
+            if (imageData.exists()) {
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Load Image");
+                alert.setHeaderText("Are you sure want to load a new image? All previous work is lost!");
+                Optional<ButtonType> option = alert.showAndWait();
+                if (option.get() == null) {
+                    return;
+                } else if (option.get() == ButtonType.CANCEL) {
+                    return;
+                }
+            }
+
+            // Open file
             File file = openFile();
             if (file == null) {
                 return;
             }
-            FileIo.loadImage(imageData, file);
+            try {
+                FileIo.loadImage(imageData, file);
+            } catch (IOException ex) {
+                Alert alert = new Alert(AlertType.ERROR, "Unable to load file : " + ex.getMessage());
+                alert.showAndWait();
+                return;
+            }
             imageUpdate();
         }
     };
@@ -160,6 +186,7 @@ public class LaunchApplication extends Application {
 
         @Override
         public void handle(ActionEvent t) {
+            //Check if there is an image to save
             if (!imageData.exists()) {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("No image");
@@ -176,8 +203,9 @@ public class LaunchApplication extends Application {
             if (file == null) {
                 return;
             }
-
-            if (!file.getAbsolutePath().endsWith(".png") || !file.getAbsolutePath().endsWith(".jpg")) {
+            // Checks if the user has specified a proper extension for the file
+            if (!file.getAbsolutePath().endsWith(".png") && !file.getAbsolutePath().endsWith(".jpg")) {
+                System.out.println(file.getAbsolutePath());
                 Boolean noExtension = true;
                 while (noExtension) {
                     Alert alert = new Alert(AlertType.INFORMATION);
@@ -196,19 +224,21 @@ public class LaunchApplication extends Application {
                 }
 
             }
-            Boolean success = FileIo.saveImage(imageData, file);
+
+            Boolean success;
+            try {
+                success = FileIo.saveImage(imageData, file);
+            } catch (IOException ex) {
+                Alert alert = new Alert(AlertType.ERROR, "Unable to save file : " + ex.getMessage());
+                alert.showAndWait();
+                return;
+            }
+
             if (success) {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Save file success");
                 alert.setHeaderText(null);
                 alert.setContentText("File saved!");
-
-                alert.showAndWait();
-            } else {
-                Alert alert = new Alert(AlertType.WARNING);
-                alert.setTitle("Save file failure");
-                alert.setHeaderText("Save failed");
-                alert.setContentText("File not saved!");
 
                 alert.showAndWait();
             }
@@ -243,6 +273,21 @@ public class LaunchApplication extends Application {
             imageUpdate();
         }
     };
+
+    //Reset grayscale button event listener
+    EventHandler<ActionEvent> resetGrayScaleButtonEventListener
+            = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent t) {
+            if (!imageData.exists()) {
+                return;
+            }
+            imageData.setGrayScale(false);
+            imageData.process();
+            imageUpdate();
+        }
+    };
+
     //Brightness slider change listener
     ChangeListener<Number> brightnessSliderListener
             = new ChangeListener<Number>() {

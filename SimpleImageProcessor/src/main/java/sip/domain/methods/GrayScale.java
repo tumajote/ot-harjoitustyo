@@ -1,4 +1,3 @@
-
 package sip.domain.methods;
 
 import org.opencv.core.Core;
@@ -21,7 +20,8 @@ public class GrayScale implements Method {
     }
 
     /**
-     *Sets the grayscale conversion variable
+     * Sets the grayscale conversion variable
+     *
      * @param grayscale true if grayscale
      */
     public void setGrayScale(Boolean grayscale) {
@@ -29,13 +29,13 @@ public class GrayScale implements Method {
     }
 
     /**
-     *Returns the grayscale conversion variable 
+     * Returns the grayscale conversion variable
+     *
      * @return true if grayscale
      */
     public Boolean getGrayScale() {
         return grayScale;
     }
-    
 
     /**
      * Applies the grayscale conversion

@@ -37,12 +37,12 @@ public class FileIOTest {
  
     
     @Test
-    public void pathIsCorrect(){     
+    public void pathIsCorrect() throws IOException{     
         assertEquals(path, FileIo.loadImage(imageData, file));
     }
     
     @Test
-    public void saveFunctions(){     
+    public void saveFunctions() throws IOException{     
         FileIo.loadImage(imageData, file);
         assertTrue(FileIo.saveImage(imageData, file));
     }

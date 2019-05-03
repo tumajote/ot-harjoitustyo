@@ -3,6 +3,7 @@ package sip.domaintests;
 import sip.domain.ImageData;
 import java.io.File;
 import java.io.IOException;
+import javafx.scene.image.Image;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

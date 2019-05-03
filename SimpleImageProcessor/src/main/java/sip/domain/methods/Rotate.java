@@ -15,7 +15,6 @@ public class Rotate implements Method {
      * @param oldMat the Mat object to be rotated
      * @return the rotated MAt object
      */
-    
     @Override
     public Mat process(Mat oldMat) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);

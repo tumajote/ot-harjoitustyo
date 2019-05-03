@@ -21,19 +21,17 @@ public class FileIo {
      * @param imageData the current imageData object
      * @param file the image file to be loaded
      * @return the path to the file
+     * @throws java.io.IOException to gui
      */
-    public static String loadImage(ImageData imageData, File file) {
+    public static String loadImage(ImageData imageData, File file) throws IOException {
         String path = "not found";
 
         nu.pattern.OpenCV.loadLibrary();
         Mat mat;
-        try {
-            mat = Highgui.imread(file.getCanonicalPath());
-            imageData.setMat(mat);
-            path = file.getCanonicalPath();
-        } catch (IOException ex) {
-            Logger.getLogger(FileIo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        mat = Highgui.imread(file.getCanonicalPath());
+        imageData.setMat(mat);
+        path = file.getCanonicalPath();
 
         return path;
     }
@@ -44,16 +42,13 @@ public class FileIo {
      * @param imageData the current imageData object
      * @param file the save file location
      * @return the path to the saved file
+     * @throws java.io.IOException
      */
-    public static boolean saveImage(ImageData imageData, File file) {
+    public static boolean saveImage(ImageData imageData, File file) throws IOException {
         boolean success = false;
 
-        try {
-            nu.pattern.OpenCV.loadLibrary();
-            success = Highgui.imwrite(file.getCanonicalPath(), imageData.getProcessedMat());
-        } catch (IOException ex) {
-            Logger.getLogger(FileIo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        nu.pattern.OpenCV.loadLibrary();
+        success = Highgui.imwrite(file.getCanonicalPath(), imageData.getProcessedMat());
 
         return success;
     }
