@@ -2,7 +2,7 @@
 
 Ohjelman rakenne noudattaa kerrosarkkitehtuuria. Koodin pakkausrakenne on seuraavanlainen:
 
-<img src="https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/Packets.png">
+![pakkausrakenne](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/Packets.png)
 
 Pakkaus _sip.gui_ sisältää JavaFX käyttöliittymän _sip.domain_ sovelluslogiikan, _sip.domain.methods_ kuvanmuokkaukseen käytetyt metodit ja _sip.fileIo_ levyltä lataamiseen ja sinne tallentamiseen liittyvän koodin.
 
@@ -21,7 +21,7 @@ Toiminnallisista kokonaisuuksista vastaa rajapinnan [_method_](https://github.co
 
 Imagedatan ja ohjelman muiden osien suhdetta kuvaava luokka/pakkauskaavio:
 
-![pakkaus/luokkakaavio_SIP](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/Sip_overview.png)
+![pakkaus/luokkakaavio_SIP](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/Sip_overview.png)
 
 ## Tietojen pysyväistallennus
 
@@ -34,14 +34,14 @@ Kuvataan seuraavaksi sovelluksen toimintalogiikka parin päätoiminnallisuuden o
 #### kuvan lataaminen sovellukseen
 Load image nappia painaessa avautuu valintaikkuna, josta voi valita kuvatiedoston levyltä. Nappia painessa siirtyy sovelluksen kontrolli seuraavasti
 
-![Load image toiminnallisuus](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/Load%20image.png)
+![Load image toiminnallisuus](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/Load%20image.png)
 
 Käyttäjän painaessa load image nappia tapahtumakäsittelijä kutsuu esiin Filechooser-ikkunan, joka palauttaa käyttäjän valitseman tiedoston. Graafinen käyttöliittymä kutsuu FileIO-luokan staattista metodia, joka muuntaa annetun tiedoston Mat-matriisiksi ja toimittaa sen ImageData luokalle. Imagedata luokka muuntaa matriisiin JavaFx:n näytettäväksi sopivaksi Image-olioksi, luo kuvasta histogrammin ja mitat sekä palauttaa ne graafisen käyttöliittymään käyttäjän nähtäviksi.
 
 #### kuvan kontrastin muokkaaminen
 Käyttäjän asettaessa contrast-liukurin arvoksi 2 siirtyy sovelluksen kontrolli seuraavasti. 
 
-![Processing image toiminnallisuus](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/Processing.png)
+![Processing image toiminnallisuus](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/Processing.png)
 
 Graafinen käyttöliittymä antaa arvon 2 ImageData-oliolle ja Imagedata kutsuu BrightnessAndContrast olion metodia, joka asetttaa kontrastia säätelevän parametrin (alpha) kakkoseksi. Tämän jälkeen graafinen käyttöliittymä kutsuu ImageData_olion process()-metodia, joka käsittelee kuvan kaikilla metodeilla ja niiden ylläptimällä parametreilla. Tämä tehdään siksi, että eri metodit muokkaavat samoja pikseliarvoja joten niiden yhdistelmä täytyy aina laskea alkuperäisille pikseleille. Toisin sanoen muutokset eivät ole kumulatiivisia vaan ne joudutaan aina laskemaan uudelleen. Tämän jälkeen ImageData-olio päivittää kuvan ja sen histogrammin ja palauttaa ne graafiselle käyttöjärjestelmälle näytettäviksi.
 
