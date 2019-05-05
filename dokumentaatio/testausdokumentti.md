@@ -12,7 +12,7 @@ Käytännössä testit käyttävät test.jpg tiedostoa. Ne testaavat, että sove
 
 ### Testauskattavuus
 
-![testikattavuus](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/testikattavuus.png)
+![testikattavuus](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/testikattavuus.png)
 
 Käyttöliittymää lukuunottamatta sovelluksen testauksen rivikattavuus on 97% ja haarautumakattavuus 84%. Puuttuvat haarat ovat yksiselitteisiä gettereitä.
 
