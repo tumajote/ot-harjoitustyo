@@ -18,6 +18,8 @@
 
 [Viikko6](https://github.com/tumajote/ot-harjoitustyo/releases/tag/Viikko6)
 
+[Loppupalautus](https://github.com/tumajote/ot-harjoitustyo/releases/tag/loppupalautus)
+
 ## Komentorivitoiminnot
 
 ### Testaus
