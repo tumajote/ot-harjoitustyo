@@ -17,4 +17,6 @@
 | 29.4  | 2    | Reset all ja terävyyden säätö|
 | 30.4  | 6    | Terävyyden säätö jatkuu ja muuta pientä korjailua|
 | 2.5   | 6    | Loppusiivousta testejä ja dokumentaatiota|
-|       | 74   | Yhteensä|
+| 3.5   | 6    | Loppusäätöä, jar säätöä ja dokumentaation viilausta|
+| 4.5   | 3    | Loppupalautus ja tarkistus|
+|       | 82   | Yhteensä|
