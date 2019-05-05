@@ -195,7 +195,7 @@ public class ImageData {
      */
     public void calculateHistogram() {
         if (grayScale.getGrayScale()) {
-            this.histogram = ImageUtils.matToImage(Histogram.calculateGrayScale(this.processedMat));
+            this.histogram = ImageUtils.matToImage(Histogram.calculateGrayScaleHistogram(this.processedMat));
         } else {
             this.histogram = ImageUtils.matToImage(Histogram.calculate(this.processedMat));
         }

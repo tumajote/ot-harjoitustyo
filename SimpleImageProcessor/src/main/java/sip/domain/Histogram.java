@@ -42,6 +42,10 @@ public class Histogram {
         Imgproc.calcHist(bgrPlanes, new MatOfInt(0), new Mat(), bHist, new MatOfInt(histSize), histRange, accumulate);
         Imgproc.calcHist(bgrPlanes, new MatOfInt(1), new Mat(), gHist, new MatOfInt(histSize), histRange, accumulate);
         Imgproc.calcHist(bgrPlanes, new MatOfInt(2), new Mat(), rHist, new MatOfInt(histSize), histRange, accumulate);
+        return draw(histSize, bHist, gHist, rHist);
+    }
+
+    static private Mat draw(int histSize, Mat bHist, Mat gHist, Mat rHist) {
         //Create parameters for the histogram image
         int histW = 512, histH = 400;
         int binW = (int) Math.round((double) histW / histSize);
@@ -77,7 +81,7 @@ public class Histogram {
      *
      * @return The histogram in a mat format
      */
-    static public Mat calculateGrayScale(Mat mat) {
+    static public Mat calculateGrayScaleHistogram(Mat mat) {
 
         LinkedList<Mat> imageList = new LinkedList<>();
         imageList.add(mat);
@@ -89,6 +93,10 @@ public class Histogram {
         Mat hist = new Mat();
         //Calculate histogram
         Imgproc.calcHist(imageList, new MatOfInt(0), new Mat(), hist, new MatOfInt(histSize), histRange, accumulate);
+        return drawGrayScaleHistogram(histSize, hist);
+    }
+
+    static private Mat drawGrayScaleHistogram(int histSize, Mat hist) {
         //Create parameters for the histogram image
         int histW = 512, histH = 400;
         int binW = (int) Math.round((double) histW / histSize);
