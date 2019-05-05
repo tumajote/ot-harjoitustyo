@@ -25,7 +25,7 @@ Imagedatan ja ohjelman muiden osien suhdetta kuvaava luokka/pakkauskaavio:
 
 ## Tietojen pysyväistallennus
 
-Kuvatiedoston lataamisesta ja tallentamisesta levylle huolehtii fileIo-luokka. Tuettavat kuvatiedostot ovat jpeg ja dng.
+Kuvatiedoston lataamisesta ja tallentamisesta levylle huolehtii fileIo-luokka. Tuettavat kuvatiedostot ovat jpg ja dng.
 
 ## Päätoiminnallisuudet
 
