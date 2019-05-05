@@ -5,7 +5,7 @@ import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
 /**
- *
+ *A Class that converts a Mat object to grayscale 
  * @author tmjterho
  */
 public class GrayScale implements Method {

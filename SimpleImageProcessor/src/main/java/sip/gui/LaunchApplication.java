@@ -28,7 +28,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- *
+ *A javaFx graphical interface for the Simple Image Processor application
  * @author tmjterho
  */
 public class LaunchApplication extends Application {

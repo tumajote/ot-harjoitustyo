@@ -5,7 +5,7 @@ import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
 /**
- *
+ *A Class that applies brightness and contrast adjustments to a Mat object
  * @author tmjterho
  */
 public class Sharpness implements Method {
