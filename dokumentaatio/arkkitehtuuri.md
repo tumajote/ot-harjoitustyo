@@ -43,8 +43,8 @@ Käyttäjän asettaessa contrast-liukurin arvoksi 2 siirtyy sovelluksen kontroll
 
 ![Processing image toiminnallisuus](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/Processing.png)
 
-Graafinen käyttöliittymä antaa arvon 2 ImageData-oliolle ja Imagedata kutsuu BrightnessAndContrast olion metodia, joka asetttaa kontrastia säätelevän parametrin (alpha) kakkoseksi. Tämän jälkeen graafinen käyttöliittymä kutsuu ImageData_olion process()-metodia, joka käsittelee kuvan kaikilla metodeilla ja niillä annetuilla arvoilla. Tämä tehdään siksi, että eri metodit muokkaavat samoja pikseliarvoja joten niiden yhdistelmä täytyy aina laskea alkuperäisille pikseleille. Toisin sanoen muutokset eivät ole kumulatiivisia vaan ne joudutaan aina laskemaan uudelleen. Tämän jälkeen ImageData-olio päivittää kuvan ja sen histogrammin ja palauttaa ne graafiselle käyttöjärjestelmälle näytettäviksi.
+Graafinen käyttöliittymä antaa arvon 2 ImageData-oliolle ja Imagedata kutsuu BrightnessAndContrast olion metodia, joka asetttaa kontrastia säätelevän parametrin (alpha) kakkoseksi. Tämän jälkeen graafinen käyttöliittymä kutsuu ImageData_olion process()-metodia, joka käsittelee kuvan kaikilla metodeilla ja niiden ylläptimällä parametreilla. Tämä tehdään siksi, että eri metodit muokkaavat samoja pikseliarvoja joten niiden yhdistelmä täytyy aina laskea alkuperäisille pikseleille. Toisin sanoen muutokset eivät ole kumulatiivisia vaan ne joudutaan aina laskemaan uudelleen. Tämän jälkeen ImageData-olio päivittää kuvan ja sen histogrammin ja palauttaa ne graafiselle käyttöjärjestelmälle näytettäviksi.
 
 #### muut kuvanmuokkaus metodit
 
-Käytännössä kaikki kuvanmuokkausmetodit noudattavat samanlaista kaavaa kuin kontrastin säätö.
+Käytännössä kaikki kuvanmuokkausmetodit noudattavat samanlaista kaavaa kuin kontrastin säätö. Pienen poikkeuksen tekee Rotate metodi, jonka tekemät muutokset tallentuvat eri muuttujaan kuin muiden metodien. Tämä siksi, että kuvan kokoon ja muotoon kohdistuvat muutokset ovat kumulatiivisia joten niiden aikaisempi tila vaikuttaa seuraavaan.
