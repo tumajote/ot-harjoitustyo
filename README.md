@@ -1,4 +1,5 @@
-# Ohjelmistotekniikka
+# Simple image processor
+Sovellus tarjoaa yksinkertaisia kuvanmuokkaus ja analysointi työkaluja sekä mahdollisuuden tallentaa muokatun kuvan levylle.
 
 ## Dokumentaatio
 [Käyttöohje](https://github.com/tumajote/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
